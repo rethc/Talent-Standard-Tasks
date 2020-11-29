@@ -25,7 +25,7 @@ export class JobSummaryCard extends React.Component {
                     this.props.reloadData();
                     TalentUtil.notification.show(res.message, "success", null, null)
                 } else {
-                    TalentUtil.notification.show(res.message, "error", null, null)
+                    TalentUtil.notification.show(res.message, "error", null, null) 
                 }
             }.bind(this)
         })
