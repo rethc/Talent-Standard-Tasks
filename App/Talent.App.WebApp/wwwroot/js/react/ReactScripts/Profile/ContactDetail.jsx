@@ -248,7 +248,7 @@ export class CompanyDetailSection extends Component {
         let companyName = this.props.details ? this.props.details.name : ""
         let email = this.props.details ? this.props.details.email : ""
         let phone = this.props.details ? this.props.details.phone : ""
-        let location = {city:'',country:''}
+        let location = { city: '', country: '' }
         if (this.props.details && this.props.details.location) {
             location = this.props.details.location
         }
