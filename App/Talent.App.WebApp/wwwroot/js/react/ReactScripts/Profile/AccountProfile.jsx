@@ -79,7 +79,7 @@ export default class AccountProfile extends React.Component {
                 this.updateWithoutSave(res.data)
             }.bind(this)
         })
-        this.init()
+        this.init();
     }
     //updates component's state without saving data
     updateWithoutSave(newValues) {
@@ -294,6 +294,6 @@ export default class AccountProfile extends React.Component {
                     </div>
                 </section>
             </BodyWrapper>
-        )
+        );
     }
 }

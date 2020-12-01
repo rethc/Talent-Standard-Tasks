@@ -52,7 +52,59 @@ namespace Talent.Services.Profile.Domain.Services
         public async Task<TalentProfileViewModel> GetTalentProfile(string Id)
         {
             //Your code here;
-            throw new NotImplementedException();
+            try
+            {
+                User profile = null;
+                profile = (await _userRepository.GetByIdAsync(Id));
+
+                var videoUrl = "";
+
+                if (profile != null)
+                {
+                    videoUrl = string.IsNullOrWhiteSpace(profile.VideoName)
+                              ? ""
+                              : await _fileService.GetFileURL(profile.VideoName, FileType.UserVideo);
+
+                    var skills = profile.Skills.Select(x => ViewModelFromSkill(x)).ToList();
+
+
+                    var result = new TalentProfileViewModel
+                    {
+                        Id = profile.Id,
+                        Address = profile.Address,
+                        CvName = profile.CvName,
+                        CvUrl = profile.CvName,
+                        Description = profile.Description,
+                        Email = profile.Email,
+                        Gender = profile.Gender,
+                        FirstName = profile.FirstName,
+                        MiddleName = profile.MiddleName,
+                        LastName = profile.LastName,
+                        IsMobilePhoneVerified = profile.IsMobilePhoneVerified,
+                        JobSeekingStatus = profile.JobSeekingStatus,
+                        LinkedAccounts = profile.LinkedAccounts,
+                        MobilePhone = profile.MobilePhone,
+                        Nationality = profile.Nationality,
+                        Phone = profile.Phone,
+                        Summary = profile.Summary,
+                        VisaExpiryDate = profile.VisaExpiryDate,
+                        VisaStatus = profile.VisaStatus,
+                        Skills = skills,
+                        ProfilePhoto = profile.ProfilePhoto,
+                        ProfilePhotoUrl = profile.ProfilePhotoUrl,
+                        VideoName = profile.VideoName,
+                        VideoUrl = videoUrl,
+                    };
+                    return result;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
         }
 
         public async Task<bool> UpdateTalentProfile(TalentProfileViewModel model, string updaterId)
