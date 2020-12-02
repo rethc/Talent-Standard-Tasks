@@ -59,7 +59,7 @@ export default class AccountProfile extends React.Component {
         let loaderData = this.state.loaderData;
         loaderData.allowedUsers.push("Talent");
         loaderData.isLoading = false;
-        this.setState({ loaderData, })
+        this.setState({ loaderData })
     }
 
     componentDidMount() {
@@ -79,7 +79,7 @@ export default class AccountProfile extends React.Component {
                 this.updateWithoutSave(res.data)
             }.bind(this)
         })
-        this.init();
+        this.init()
     }
     //updates component's state without saving data
     updateWithoutSave(newValues) {
@@ -153,6 +153,8 @@ export default class AccountProfile extends React.Component {
                                                 saveProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
+
+                                        {/**
                                         <FormItemWrapper
                                             title='User Details'
                                             tooltip='Enter your contact details'
@@ -287,6 +289,8 @@ export default class AccountProfile extends React.Component {
                                             updateProfileData={this.updateAndSaveData}
                                             updateWithoutSave={this.updateWithoutSave}
                                         />
+
+                                      **/}
                                     </div>
                                 </form>
                             </div >
@@ -294,6 +298,6 @@ export default class AccountProfile extends React.Component {
                     </div>
                 </section>
             </BodyWrapper>
-        );
+        )
     }
 }
