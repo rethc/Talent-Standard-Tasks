@@ -77,7 +77,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
           controlFunc={this.handleChange}
           maxLength={255}
           placeholder="Enter your LinkedIn Profile URL"
-          errorMessage="Please enter a valid LinkedIn Profile URL"
+          errorMessage="Please enter a valid Profile URL"
         />
         <ChildSingleInput
           inputType="text"
@@ -89,7 +89,6 @@ export default class SocialMediaLinkedAccount extends React.Component {
           placeholder="Enter your GitHub URL"
           errorMessage="Please enter a valid GitHub URL"
         />
-
         <button
           type="button"
           className="ui teal button"
@@ -111,6 +110,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
     let github = this.props.linkedAccounts
       ? this.props.linkedAccounts.github
       : "";
+
     return (
       <div className="row">
         <div className="ui sixteen wide column">

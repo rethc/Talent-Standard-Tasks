@@ -107,31 +107,32 @@ namespace Talent.Services.Profile.Domain.Services
             }
         }
 
-        public async Task<bool> UpdateTalentProfile(TalentProfileViewModel model, string updaterId)
+        public async Task<bool> UpdateTalentProfile(TalentProfileViewModel talent, string updaterId)
         {
             try
             {
-                if (model.Id != null)
+                if (talent.Id != null)
                 {
-                    User existingUser = await _userRepository.GetByIdAsync(model.Id);
-
-                    existingUser.Email = model.Email;
-                    existingUser.FirstName = model.FirstName;
-                    existingUser.LastName = model.LastName;
-                    existingUser.LinkedAccounts = model.LinkedAccounts;
-                    existingUser.Phone = model.Phone;
-                    existingUser.Description = model.Description;
-                    existingUser.Summary = model.Summary;
-                    existingUser.Address = model.Address;
-                    existingUser.Nationality = model.Nationality;
-                    existingUser.VisaStatus = model.VisaStatus;
-                    existingUser.VisaExpiryDate = model.VisaExpiryDate;
-                    existingUser.JobSeekingStatus = model.JobSeekingStatus;
-                    existingUser.ProfilePhoto = model.ProfilePhoto;
-                    existingUser.ProfilePhotoUrl = model.ProfilePhotoUrl;
+                    User existingUser = (await _userRepository.GetByIdAsync(talent.Id));
+                    existingUser.FirstName = talent.FirstName;
+                    existingUser.LastName = talent.LastName;
+                    existingUser.Email = talent.Email;
+                    existingUser.Phone = talent.Phone;
+                    existingUser.Address = talent.Address;
+                    existingUser.Nationality = talent.Nationality;
+                    existingUser.VisaStatus = talent.VisaStatus;
+                    existingUser.JobSeekingStatus = talent.JobSeekingStatus;
+                    existingUser.VisaExpiryDate = talent.VisaExpiryDate;
+                    existingUser.Summary = talent.Summary;
+                    existingUser.Description = talent.Description;
+                    existingUser.ProfilePhoto = talent.ProfilePhoto;
+                    existingUser.ProfilePhotoUrl = talent.ProfilePhotoUrl;
+                    existingUser.LinkedAccounts = talent.LinkedAccounts;
+                    existingUser.UpdatedBy = updaterId;
+                    existingUser.UpdatedOn = DateTime.Now;
 
                     var newSkills = new List<UserSkill>();
-                    foreach (var item in model.Skills)
+                    foreach (var item in talent.Skills)
                     {
                         var skill = existingUser.Skills.SingleOrDefault(x => x.Id == item.Id);
                         if (skill == null)
@@ -139,7 +140,7 @@ namespace Talent.Services.Profile.Domain.Services
                             skill = new UserSkill
                             {
                                 Id = ObjectId.GenerateNewId().ToString(),
-                                IsDeleted = false
+                                UserId = talent.Id,
                             };
                         }
                         UpdateSkillFromView(item, skill);
