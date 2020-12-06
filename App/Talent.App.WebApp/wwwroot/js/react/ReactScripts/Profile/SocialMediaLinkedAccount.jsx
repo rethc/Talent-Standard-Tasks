@@ -57,8 +57,25 @@ export default class SocialMediaLinkedAccount extends React.Component {
   saveLinkedAccounts() {
     const linkedAccounts = { linkedAccounts: this.state.newLinkedAccounts };
     const data = Object.assign({}, linkedAccounts);
-    this.props.saveProfileData(data);
-    this.closeEdit();
+
+    //ensure URL starts with HTTP/HTTPS
+    //https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
+    var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+    var regex = new RegExp(expression);
+
+    if (!data.linkedAccounts.linkedIn.match(regex)) {
+      TalentUtil.notification.show(
+        "Invalid LinkedIn Profile URL",
+        "error",
+        null,
+        null
+      );
+    } else if (!data.linkedAccounts.github.match(regex)) {
+      TalentUtil.notification.show("Invalid GitHub URL", "error", null, null);
+    } else {
+      this.props.saveProfileData(data);
+      this.closeEdit();
+    }
   }
 
   render() {
@@ -118,11 +135,17 @@ export default class SocialMediaLinkedAccount extends React.Component {
           <Button
             color="linkedin"
             as="a"
+            target="_blank"
             href={this.props.linkedAccounts.linkedIn}
           >
             <Icon name="linkedin" /> LinkedIn
           </Button>
-          <Button color="black" as="a" href={this.props.linkedAccounts.github}>
+          <Button
+            color="black"
+            as="a"
+            target="_blank"
+            href={this.props.linkedAccounts.github}
+          >
             <Icon name="github" /> GitHub
           </Button>
           <button
