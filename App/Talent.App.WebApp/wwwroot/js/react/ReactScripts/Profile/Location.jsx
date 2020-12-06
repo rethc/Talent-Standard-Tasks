@@ -56,7 +56,8 @@ export class Address extends React.Component {
   }
 
   saveContact() {
-    const data = Object.assign({}, this.state.newAddress);
+    const updatedAddress = { address: this.state.newAddress };
+    const data = Object.assign({}, updatedAddress);
     this.props.saveProfileData(data);
     this.closeEdit();
   }
