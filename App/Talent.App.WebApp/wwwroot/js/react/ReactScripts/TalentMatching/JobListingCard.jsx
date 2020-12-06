@@ -1,13 +1,9 @@
-﻿import React from 'react';
+﻿import React from "react";
 
 export default class JobListingCard extends React.Component {
-    constructor(props) {
-        super(props);
-   
-    }
+  constructor(props) {
+    super(props);
+  }
 
-
-    render() {
-      
-    }
+  render() {}
 }

@@ -1,21 +1,15 @@
 ﻿/*This component renders table on ManageClient*/
 
-import React from 'react'
-import { Button, Icon, Table, Popup } from 'semantic-ui-react'
-const statusText = ["Created", "Sent", "Active"]
+import React from "react";
+import { Button, Icon, Table, Popup } from "semantic-ui-react";
+const statusText = ["Created", "Sent", "Active"];
 
 class ClientTable extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+  }
 
-    
-    };
-
-   
-    render() {
-        
-    
-    }
+  render() {}
 }
 
-export default ClientTable
+export default ClientTable;
