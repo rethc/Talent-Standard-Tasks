@@ -1,13 +1,13 @@
 ﻿/* Social media JSX */
 import React from "react";
 import { ChildSingleInput } from "../Form/SingleInput.jsx";
-import { Popup, Icon } from "semantic-ui-react";
+import { Button, Icon } from "semantic-ui-react";
 
 export default class SocialMediaLinkedAccount extends React.Component {
   constructor(props) {
     super(props);
 
-    const socialMediaAccount = props.linkedAccounts
+    const linkedAccounts = props.linkedAccounts
       ? Object.assign({}, props.linkedAccounts)
       : {
           linkedIn: "",
@@ -16,13 +16,13 @@ export default class SocialMediaLinkedAccount extends React.Component {
 
     this.state = {
       showEditSection: false,
-      newContact: { linkedAccounts: socialMediaAccount },
+      newLinkedAccounts: linkedAccounts,
     };
 
     this.openEdit = this.openEdit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.saveContact = this.saveContact.bind(this);
+    this.saveLinkedAccounts = this.saveLinkedAccounts.bind(this);
     this.renderEdit = this.renderEdit.bind(this);
     this.renderDisplay = this.renderDisplay.bind(this);
   }
@@ -33,10 +33,10 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }*/
 
   openEdit() {
-    const details = Object.assign({}, this.props.linkedAccounts);
+    const linkedAccounts = Object.assign({}, this.props.linkedAccounts);
     this.setState({
       showEditSection: true,
-      newContact: { linkedAccounts: socialMediaAccount },
+      newLinkedAccounts: linkedAccounts,
     });
   }
 
@@ -47,15 +47,15 @@ export default class SocialMediaLinkedAccount extends React.Component {
   }
 
   handleChange(event) {
-    const data = Object.assign({}, this.state.newContact);
+    const data = Object.assign({}, this.state.newLinkedAccounts);
     data[event.target.name] = event.target.value;
     this.setState({
-      newContact: data,
+      newLinkedAccounts: data,
     });
   }
 
-  saveContact() {
-    const data = Object.assign({}, this.state.newContact);
+  saveLinkedAccounts() {
+    const data = Object.assign({}, this.state.newLinkedAccounts);
     this.props.saveProfileData(data);
     this.closeEdit();
   }
@@ -72,12 +72,8 @@ export default class SocialMediaLinkedAccount extends React.Component {
         <ChildSingleInput
           inputType="text"
           label="LinkedIn"
-          name="linkedin"
-          value={
-            this.state.newContact.linkedAccounts.linkedIn
-              ? this.state.newContact.linkedAccounts.linkedIn
-              : ""
-          }
+          name="linkedIn"
+          value={this.state.newLinkedAccounts.linkedIn}
           controlFunc={this.handleChange}
           maxLength={255}
           placeholder="Enter your LinkedIn Profile URL"
@@ -87,11 +83,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
           inputType="text"
           label="GitHub"
           name="github"
-          value={
-            this.state.newContact.linkedAccounts.github
-              ? this.state.newContact.linkedAccounts.github
-              : ""
-          }
+          value={this.state.newLinkedAccounts.github}
           controlFunc={this.handleChange}
           maxLength={255}
           placeholder="Enter your GitHub URL"
@@ -101,7 +93,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
         <button
           type="button"
           className="ui teal button"
-          onClick={this.saveContact}
+          onClick={this.saveLinkedAccounts}
         >
           Save
         </button>
@@ -122,14 +114,16 @@ export default class SocialMediaLinkedAccount extends React.Component {
     return (
       <div className="row">
         <div className="ui sixteen wide column">
-          <button type="button" className="ui right floated teal button">
-            <Icon name="linkedin" />
-            LinkedIn
-          </button>
-          <button type="button" className="ui right floated teal button">
-            <Icon name="github" />
-            GitHub
-          </button>
+          <Button
+            color="linkedin"
+            as="a"
+            href={this.props.linkedAccounts.linkedIn}
+          >
+            <Icon name="linkedin" /> LinkedIn
+          </Button>
+          <Button color="black" as="a" href={this.props.linkedAccounts.github}>
+            <Icon name="github" /> GitHub
+          </Button>
           <button
             type="button"
             className="ui right floated teal button"
