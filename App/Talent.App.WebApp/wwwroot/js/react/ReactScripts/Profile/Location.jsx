@@ -27,6 +27,7 @@ export class Address extends React.Component {
     this.openEdit = this.openEdit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.saveContact = this.saveContact.bind(this);
     this.handleDropdownChange = this.handleDropdownChange.bind(this);
     this.renderEdit = this.renderEdit.bind(this);
     this.renderDisplay = this.renderDisplay.bind(this);
@@ -52,6 +53,12 @@ export class Address extends React.Component {
     this.setState({
       newAddress: data,
     });
+  }
+
+  saveContact() {
+    const data = Object.assign({}, this.state.newAddress);
+    this.props.saveProfileData(data);
+    this.closeEdit();
   }
 
   handleDropdownChange(event) {
@@ -132,7 +139,7 @@ export class Address extends React.Component {
               value={
                 this.state.newAddress.street ? this.state.newAddress.street : ""
               }
-              placeholder="street name"
+              placeholder="Street name"
               maxLength={80}
               onChange={this.handleChange}
             />
@@ -145,7 +152,7 @@ export class Address extends React.Component {
               value={
                 this.state.newAddress.suburb ? this.state.newAddress.suburb : ""
               }
-              placeholder="suburb name"
+              placeholder="Suburb name"
               maxLength={20}
               onChange={this.handleChange}
             />
@@ -198,7 +205,7 @@ export class Address extends React.Component {
                   ? this.state.newAddress.postCode
                   : ""
               }
-              placeholder="posCode"
+              placeholder="Post Code"
               maxLength={20}
               onChange={this.handleChange}
             />
