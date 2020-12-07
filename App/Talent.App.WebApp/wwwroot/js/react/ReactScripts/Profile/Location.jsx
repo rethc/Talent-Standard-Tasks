@@ -2,6 +2,7 @@
 import Cookies from "js-cookie";
 import { default as Countries } from "../../../../util/jsonFiles/countries.json";
 import { ChildSingleInput } from "../Form/SingleInput.jsx";
+import { Form, Grid } from "semantic-ui-react";
 
 export class Address extends React.Component {
   constructor(props) {
@@ -265,7 +266,42 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  render() {}
+  handleChange(e) {
+    let value = e.target.value;
+    const newNationality = { nationality: value };
+    this.props.saveProfileData(newNationality);
+  }
+
+  render() {
+    const countryOptions = Object.keys(Countries).map((x) => (
+      <option key={x} value={x}>
+        {x}
+      </option>
+    ));
+
+    return (
+      <div className="ui grid">
+        <div className="row">
+          <div className="sixteen wide column">
+            <select
+              className="ui right labeled dropdown"
+              placeholder="Country"
+              value={
+                this.props.nationalityData ? this.props.nationalityData : ""
+              }
+              onChange={this.handleChange}
+              name="nationality"
+            >
+              <option value="">Select your nationality</option>
+              {countryOptions}
+            </select>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
