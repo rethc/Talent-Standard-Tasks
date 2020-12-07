@@ -296,7 +296,9 @@ export class Nationality extends React.Component {
               onChange={this.handleChange}
               name="nationality"
             >
-              <option value="">Select your nationality</option>
+              <option value="" disabled hidden>
+                Select your nationality
+              </option>
               {countryOptions}
             </select>
           </div>

@@ -195,7 +195,6 @@ export default class AccountProfile extends React.Component {
                       />
                     </FormItemWrapper>
 
-                    {/**
                     <FormItemWrapper
                       title="Languages"
                       tooltip="Select languages that you speak"
@@ -205,6 +204,8 @@ export default class AccountProfile extends React.Component {
                         updateProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
+
+                    {/**
                     <FormItemWrapper title="Skills" tooltip="List your skills">
                       <Skill
                         skillData={this.state.profileData.skills}
