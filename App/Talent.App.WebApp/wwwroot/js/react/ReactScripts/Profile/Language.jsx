@@ -12,7 +12,7 @@ export default class Language extends React.Component {
       showAddSection: false,
 
       newLanguage: {
-        languages: props.languageData,
+        languages: this.props.languageData,
       },
       addLanguage: {
         id: 0,

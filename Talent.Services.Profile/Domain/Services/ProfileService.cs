@@ -49,6 +49,7 @@ namespace Talent.Services.Profile.Domain.Services
             throw new NotImplementedException();
         }
 
+
         public async Task<TalentProfileViewModel> GetTalentProfile(string Id)
         {
             //Your code here;
@@ -149,7 +150,8 @@ namespace Talent.Services.Profile.Domain.Services
 
                     existingUser.Skills = newSkills;
 
-                    // if languages from the view has the same id with existingUser modify this item otherwise create a new language object
+                    // if languages from the view has the same id with existingUser, that means we need to modify this item
+                    // otherwise create a new language object
                     var newLanguages = new List<UserLanguage>();
                     foreach (var item in talent.Languages)
                     {
@@ -460,6 +462,16 @@ namespace Talent.Services.Profile.Domain.Services
                 Id = skill.Id,
                 Level = skill.ExperienceLevel,
                 Name = skill.Skill
+            };
+        }
+
+        protected AddLanguageViewModel ViewModelFromLanguage(UserLanguage language)
+        {
+            return new AddLanguageViewModel
+            {
+                Id = language.Id,
+                Level = language.LanguageLevel,
+                Name = language.Language
             };
         }
 
