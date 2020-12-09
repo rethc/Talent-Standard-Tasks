@@ -54,6 +54,34 @@ export default class Language extends React.Component {
 
   updateLanguage(id) {
     const data = Object.assign({}, this.state.newLanguage);
+    let { name, level } = this.state.updateLanguage;
+    let { languageData } = this.state.languageData;
+
+    for (let i = 0; i < languageData.length; i++) {
+      if (languageData[i].id == id) {
+        if (!name) {
+          name = languageData[i].name;
+        }
+        if (!level) {
+          level = languageData[i].level;
+        }
+
+        languageData[i] = Object.assign(
+          {},
+          languageData[i],
+          this.state.updateLanguage
+        );
+      }
+    }
+    data.languages = languageData;
+    this.setState({
+      newLanguage: {
+        languages: languageData,
+      },
+      updateLanguage: { name: "", level: "" },
+      editId: "",
+    });
+    this.props.updateProfileData(data);
   }
 
   //** END OF UPDATE FUNCTIONS **/
