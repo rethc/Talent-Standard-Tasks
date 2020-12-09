@@ -149,6 +149,26 @@ namespace Talent.Services.Profile.Domain.Services
 
                     existingUser.Skills = newSkills;
 
+                    // if languages from the view has the same id with existingUser modify this item otherwise create a new language object
+                    var newLanguages = new List<UserLanguage>();
+                    foreach (var item in talent.Languages)
+                    {
+                        var language = existingUser.Languages.SingleOrDefault(x => x.Id == item.Id);
+                        if (language == null)
+                        {
+                            language = new UserLanguage
+                            {
+                                Id = ObjectId.GenerateNewId().ToString(),
+                                UserId = talent.Id
+                            };
+                        }
+                        UpdateLanguageFromView(item, language);
+                        newLanguages.Add(language);
+                    }
+                    existingUser.Languages = newLanguages;
+
+
+
                     existingUser.UpdatedBy = updaterId;
                     existingUser.UpdatedOn = DateTime.Now;
 
@@ -421,6 +441,14 @@ namespace Talent.Services.Profile.Domain.Services
             original.ExperienceLevel = model.Level;
             original.Skill = model.Name;
         }
+
+        protected void UpdateLanguageFromView(AddLanguageViewModel model, UserLanguage original)
+        {
+            original.LanguageLevel = model.Level;
+            original.Language = model.Name;
+            original.IsDeleted = model.IsDeleted;
+        }
+
 
         #endregion
 
