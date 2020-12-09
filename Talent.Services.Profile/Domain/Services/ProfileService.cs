@@ -446,7 +446,6 @@ namespace Talent.Services.Profile.Domain.Services
         {
             original.LanguageLevel = model.Level;
             original.Language = model.Name;
-            original.IsDeleted = model.IsDeleted;
         }
 
 
