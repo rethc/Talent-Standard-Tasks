@@ -1,32 +1,99 @@
 ﻿/* Language section */
 import React from "react";
 import Cookies from "js-cookie";
-import { Grid, Table, Icon } from "semantic-ui-react";
+import { Button, Table, Icon } from "semantic-ui-react";
 
 export default class Language extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      languageData: this.props.languageData ? this.props.languageData : [],
+      showAddSection: false,
+
       newLanguage: {
-        languages: this.props.languageData,
+        languages: props.languageData,
       },
       addLanguage: {
-        id: "",
+        id: 0,
         name: "",
         level: "",
       },
-      showAddSection: false,
+      updateLanguage: {
+        name: "",
+        level: "",
+      },
+      editId: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.addLanguage = this.addLanguage.bind(this);
+    this.handleUpdateLanguage = this.handleUpdateLanguage.bind(this);
     this.cancelAddLanguage = this.cancelAddLanguage.bind(this);
+    this.cancelEditLanguage = this.cancelEditLanguage.bind(this);
   }
 
-  handleChange(e) {
-    let value = e.target.value;
-    const newNationality = { nationality: value };
-    this.props.saveProfileData(newNationality);
+  // **************************************************/
+  //** START OF UPDATE FUNCTIONS AND EVENTLISTENERS **/
+  handleUpdateLanguage(event) {
+    const data = Object.assign({}, this.state.updateLanguage);
+
+    const name = event.target.name;
+    const value = event.target.value;
+    data[name] = value;
+
+    this.setState({ updateLanguage: data });
+  }
+
+  cancelEditLanguage() {
+    this.setState({
+      editId: "",
+      editLanguage: { name: "", level: "" },
+    });
+  }
+
+  updateLanguage(id) {
+    const data = Object.assign({}, this.state.newLanguage);
+  }
+
+  //** END OF UPDATE FUNCTIONS **/
+  // ****************************/
+
+  // ***********************************************/
+  //** START OF ADD FUNCTIONS AND EVENTLISTENERS **/
+  addLanguage() {
+    const { name, level } = this.state.addLanguage;
+    let { id } = this.state.addLanguage;
+
+    if (name == "" || level == "") {
+      TalentUtil.notification.show(
+        "Please a valid language and level",
+        "error",
+        null,
+        null
+      );
+    } else {
+      const data = Object.assign({}, this.state.newLangauge);
+      data.languages = this.state.languageData;
+      id = id + 1;
+      data.languages.push(this.state.addLanguage);
+
+      this.props.updateProfileData(data);
+      this.setState({
+        showAddSection: false,
+        addLanguage: { name: "", level: "" },
+      });
+    }
+  }
+
+  handleChange(event) {
+    const data = Object.assign({}, this.state.addLanguage);
+
+    const name = event.target.name;
+    const value = event.target.value;
+    data[name] = value;
+
+    this.setState({ addLanguage: data });
   }
 
   cancelAddLanguage() {
@@ -35,6 +102,8 @@ export default class Language extends React.Component {
       addLanguage: { name: "", level: "" },
     });
   }
+  //** END OF ADD FUNCTIONS AND EVENTLISTENERS **/
+  // ********************************************/
 
   renderAddLanguage() {
     return (
@@ -43,7 +112,7 @@ export default class Language extends React.Component {
           <div className="five wide column">
             <input
               type="text"
-              name="language"
+              name="name"
               value={
                 this.state.addLanguage.name ? this.state.addLanguage.name : ""
               }
@@ -90,6 +159,88 @@ export default class Language extends React.Component {
     );
   }
 
+  renderRow(language) {
+    return (
+      <Table.Row key={language.id}>
+        <Table.Cell>{language.name}</Table.Cell>
+        <Table.Cell>{language.level}</Table.Cell>
+        <Table.Cell textAlign="right">
+          <Button
+            type="button"
+            icon="pencil"
+            onClick={() => this.setState({ editId: language.id })}
+          />
+          <Button
+            type="button"
+            icon="close"
+            onClick={() => this.setState({ editId: language.id })}
+          />
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
+
+  renderRowUpdate(language) {
+    return (
+      <Table.Row key={language.id}>
+        <Table.Cell>
+          <input
+            type="text"
+            name="name"
+            value={
+              this.state.updateLanguage.name
+                ? this.state.updateLanguage.name
+                : language.name
+            }
+            placeholder="Add Language"
+            maxLength={80}
+            onChange={this.handleUpdateLanguage}
+          />
+        </Table.Cell>
+        <Table.Cell>
+          <select
+            value={
+              this.state.updateLanguage.level
+                ? this.state.updateLanguage.level
+                : language.level
+            }
+            onChange={this.handleUpdateLanguage}
+            name="level"
+          >
+            <option value="">Language Level</option>
+            <option value="basic">Basic</option>
+            <option value="conversational">Conversational</option>
+            <option value="fluent">Fluent</option>
+            <option value="native">Native/Bilingual</option>
+          </select>
+        </Table.Cell>
+        <Table.Cell>
+          <Button
+            basic
+            floated="left"
+            color="blue"
+            type="button"
+            content="Update"
+            onClick={() => {
+              this.updateLanguage(language.id);
+            }}
+          />
+
+          <Button
+            basic
+            floated="left"
+            color="red"
+            type="button"
+            content="Cancel"
+            onClick={() => {
+              this.cancelEditLanguage();
+            }}
+          />
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
+
   render() {
     return (
       <div className="ui sixteen wide column">
@@ -110,7 +261,17 @@ export default class Language extends React.Component {
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
-          <Table.Body></Table.Body>
+          <Table.Body>
+            {this.props.languageData ? (
+              this.props.languageData.map((language) =>
+                language.id === this.state.editId
+                  ? this.renderRowUpdate(language)
+                  : this.renderRow(language)
+              )
+            ) : (
+              <Table.Row key={0}></Table.Row>
+            )}
+          </Table.Body>
         </Table>
       </div>
     );
