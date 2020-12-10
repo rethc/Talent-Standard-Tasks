@@ -440,7 +440,7 @@ namespace Talent.Services.Profile.Domain.Services
 
         protected void UpdateSkillFromView(AddSkillViewModel model, UserSkill original)
         {
-            original.ExperienceLevel = model.Level;
+                original.ExperienceLevel = model.Level;
             original.Skill = model.Name;
         }
 

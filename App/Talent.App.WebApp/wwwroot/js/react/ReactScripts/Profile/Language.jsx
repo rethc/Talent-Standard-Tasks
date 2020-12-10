@@ -91,7 +91,6 @@ export default class Language extends React.Component {
   //** START OF ADD FUNCTIONS AND EVENTLISTENERS **/
   addLanguage() {
     const { name, level } = this.state.addLanguage;
-    let { id } = this.state.addLanguage;
 
     if (name == "" || level == "") {
       TalentUtil.notification.show(
@@ -103,7 +102,10 @@ export default class Language extends React.Component {
     } else {
       const data = Object.assign({}, this.state.newLangauge);
       data.languages = this.state.languageData;
-      id = id + 1;
+      this.setState({
+        addLanguage: { id: this.id + this.id + 1 },
+      });
+
       data.languages.push(this.state.addLanguage);
 
       this.props.updateProfileData(data);
