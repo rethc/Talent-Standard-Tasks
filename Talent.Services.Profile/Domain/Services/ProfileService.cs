@@ -67,6 +67,7 @@ namespace Talent.Services.Profile.Domain.Services
                               : await _fileService.GetFileURL(profile.VideoName, FileType.UserVideo);
 
                     var skills = profile.Skills.Select(x => ViewModelFromSkill(x)).ToList();
+                    var languages = profile.Languages.Select(x => ViewModelFromLanguage(x)).ToList();
 
 
                     var result = new TalentProfileViewModel
@@ -76,6 +77,7 @@ namespace Talent.Services.Profile.Domain.Services
                         CvName = profile.CvName,
                         CvUrl = profile.CvName,
                         Description = profile.Description,
+                        Languages = languages,
                         Email = profile.Email,
                         Gender = profile.Gender,
                         FirstName = profile.FirstName,

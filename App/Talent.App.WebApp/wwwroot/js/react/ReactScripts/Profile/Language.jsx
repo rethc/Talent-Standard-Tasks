@@ -8,7 +8,6 @@ export default class Language extends React.Component {
     super(props);
 
     this.state = {
-      languageData: this.props.languageData ? this.props.languageData : [],
       showAddSection: false,
 
       newLanguage: {
@@ -31,10 +30,9 @@ export default class Language extends React.Component {
     this.handleUpdateLanguage = this.handleUpdateLanguage.bind(this);
     this.cancelAddLanguage = this.cancelAddLanguage.bind(this);
     this.cancelEditLanguage = this.cancelEditLanguage.bind(this);
+    this.deleteLanguage = this.deleteLanguage.bind(this);
   }
 
-  // **************************************************/
-  //** START OF UPDATE FUNCTIONS AND EVENTLISTENERS **/
   handleUpdateLanguage(event) {
     const data = Object.assign({}, this.state.updateLanguage);
 
@@ -48,29 +46,25 @@ export default class Language extends React.Component {
   cancelEditLanguage() {
     this.setState({
       editId: "",
-      editLanguage: { name: "", level: "" },
+      updateLanguage: { name: "", level: "" },
     });
   }
 
   updateLanguage(id) {
     const data = Object.assign({}, this.state.newLanguage);
-    let { name, level } = this.state.updateLanguage;
-    let { languageData } = this.state.languageData;
+    let languageData = this.props.languageData;
+    let updateLanguage = this.state.updateLanguage;
 
     for (let i = 0; i < languageData.length; i++) {
       if (languageData[i].id == id) {
-        if (!name) {
-          name = languageData[i].name;
+        if (!updateLanguage.name) {
+          updateLanguage.name = languageData[i].name;
         }
-        if (!level) {
-          level = languageData[i].level;
+        if (!updateLanguage.level) {
+          updateLanguage.level = languageData[i].level;
         }
 
-        languageData[i] = Object.assign(
-          {},
-          languageData[i],
-          this.state.updateLanguage
-        );
+        languageData[i] = Object.assign({}, languageData[i], updateLanguage);
       }
     }
     data.languages = languageData;
@@ -84,15 +78,10 @@ export default class Language extends React.Component {
     this.props.updateProfileData(data);
   }
 
-  //** END OF UPDATE FUNCTIONS **/
-  // ****************************/
-
-  // ***********************************************/
-  //** START OF ADD FUNCTIONS AND EVENTLISTENERS **/
   addLanguage() {
-    const { name, level } = this.state.addLanguage;
+    let addLang = this.state.addLanguage;
 
-    if (name == "" || level == "") {
+    if (addLang.name == "" || addLang.level == "") {
       TalentUtil.notification.show(
         "Please a valid language and level",
         "error",
@@ -100,20 +89,35 @@ export default class Language extends React.Component {
         null
       );
     } else {
-      const data = Object.assign({}, this.state.newLangauge);
-      data.languages = this.state.languageData;
-      this.setState({
-        addLanguage: { id: this.id + this.id + 1 },
-      });
+      let languageData = this.props.languageData;
+      const data = Object.assign({}, this.state.newLanguage);
 
-      data.languages.push(this.state.addLanguage);
+      console.log(addLang);
+      data.languages = languageData;
+      addLang.id = addLang.id + 1;
 
+      data.languages.push(addLang);
+
+      console.log(addLang);
       this.props.updateProfileData(data);
       this.setState({
         showAddSection: false,
         addLanguage: { name: "", level: "" },
       });
     }
+  }
+
+  deleteLanguage(id) {
+    var languageData = this.props.languageData;
+    const data = Object.assign({}, this.state.newLanguage);
+    for (let i = 0; i < languageData.length; i++) {
+      if (languageData[i].id == id) {
+        languageData.splice(i, 1);
+      }
+    }
+    this.setState({ newLanguage: { languages: languageData } });
+    data.languages = languageData;
+    this.props.updateProfileData(data);
   }
 
   handleChange(event) {
@@ -132,8 +136,6 @@ export default class Language extends React.Component {
       addLanguage: { name: "", level: "" },
     });
   }
-  //** END OF ADD FUNCTIONS AND EVENTLISTENERS **/
-  // ********************************************/
 
   renderAddLanguage() {
     return (
@@ -162,10 +164,10 @@ export default class Language extends React.Component {
               <option value="" disabled hidden>
                 Language Level
               </option>
-              <option value="basic">Basic</option>
-              <option value="conversational">Conversational</option>
-              <option value="fluent">Fluent</option>
-              <option value="native">Native/Bilingual</option>
+              <option value="Basic">Basic</option>
+              <option value="Conversational">Conversational</option>
+              <option value="Fluent">Fluent</option>
+              <option value="Native/Bilingual">Native/Bilingual</option>
             </select>
           </div>
           <div className="five wide column">
@@ -203,7 +205,9 @@ export default class Language extends React.Component {
           <Button
             type="button"
             icon="close"
-            onClick={() => this.setState({ editId: language.id })}
+            onClick={() => {
+              this.deleteLanguage(language.id);
+            }}
           />
         </Table.Cell>
       </Table.Row>
@@ -238,10 +242,10 @@ export default class Language extends React.Component {
             name="level"
           >
             <option value="">Language Level</option>
-            <option value="basic">Basic</option>
-            <option value="conversational">Conversational</option>
-            <option value="fluent">Fluent</option>
-            <option value="native">Native/Bilingual</option>
+            <option value="Basic">Basic</option>
+            <option value="Conversational">Conversational</option>
+            <option value="Fluent">Fluent</option>
+            <option value="Native/Bilingual">Native/Bilingual</option>
           </select>
         </Table.Cell>
         <Table.Cell>
@@ -292,14 +296,10 @@ export default class Language extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.props.languageData ? (
-              this.props.languageData.map((language) =>
-                language.id === this.state.editId
-                  ? this.renderRowUpdate(language)
-                  : this.renderRow(language)
-              )
-            ) : (
-              <Table.Row key={0}></Table.Row>
+            {this.props.languageData.map((language) =>
+              language.id === this.state.editId
+                ? this.renderRowUpdate(language)
+                : this.renderRow(language)
             )}
           </Table.Body>
         </Table>
