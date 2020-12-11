@@ -172,7 +172,6 @@ namespace Talent.Services.Profile.Domain.Services
                     existingUser.Languages = newLanguages;
 
 
-
                     existingUser.UpdatedBy = updaterId;
                     existingUser.UpdatedOn = DateTime.Now;
 
