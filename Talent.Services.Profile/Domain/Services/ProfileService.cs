@@ -123,7 +123,7 @@ namespace Talent.Services.Profile.Domain.Services
                     existingUser.Phone = talent.Phone;
                     existingUser.Address = talent.Address;
                     existingUser.Nationality = talent.Nationality;
-                    existingUser.VisaStatus = talent.VisaStatus;
+                    existingUser.VisaStatus = talent.VisaStatus;  
                     existingUser.JobSeekingStatus = talent.JobSeekingStatus;
                     existingUser.VisaExpiryDate = talent.VisaExpiryDate;
                     existingUser.Summary = talent.Summary;

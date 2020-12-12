@@ -3,7 +3,7 @@ import React from "react";
 import Cookies from "js-cookie";
 import { Button, Table, Icon } from "semantic-ui-react";
 
-//Issue: to fix null ID's after first language has been saved
+//TODO: to fix null ID's after first language has been saved.
 
 export default class Language extends React.Component {
   constructor(props) {
