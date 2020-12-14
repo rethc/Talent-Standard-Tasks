@@ -184,7 +184,6 @@ export default class AccountProfile extends React.Component {
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
-
                     <FormItemWrapper
                       title="Nationality"
                       tooltip="Select your nationality"
@@ -194,7 +193,6 @@ export default class AccountProfile extends React.Component {
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
-
                     <FormItemWrapper
                       title="Languages"
                       tooltip="Select languages that you speak"
@@ -204,7 +202,6 @@ export default class AccountProfile extends React.Component {
                         updateProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
-
                     {/**
                     <FormItemWrapper title="Skills" tooltip="List your skills">
                       <Skill
@@ -225,6 +222,8 @@ export default class AccountProfile extends React.Component {
                       title="Education"
                       tooltip="Add your educational background"
                     >
+                     
+                     
                       <Education
                         educationData={this.state.profileData.education}
                         updateProfileData={this.updateAndSaveData}
@@ -238,7 +237,9 @@ export default class AccountProfile extends React.Component {
                         certificateData={this.state.profileData.certifications}
                         updateProfileData={this.updateAndSaveData}
                       />
+                      
                     </FormItemWrapper>
+                     **/}
                     <FormItemWrapper
                       title="Visa Status"
                       tooltip="What is your current Visa/Citizenship status?"
@@ -250,6 +251,8 @@ export default class AccountProfile extends React.Component {
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
+
+                    {/**
                     <FormItemWrapper
                       title="Status"
                       tooltip="What is your current status in jobseeking?"
