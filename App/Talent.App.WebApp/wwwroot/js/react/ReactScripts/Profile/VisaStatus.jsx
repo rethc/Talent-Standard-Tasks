@@ -6,7 +6,11 @@ import Moment from "moment";
 export default class VisaStatus extends React.Component {
   constructor(props) {
     super(props);
+
+    this.saveVisaType = this.saveVisaType.bind(this);
   }
+
+  saveVisaType() {}
 
   renderExpiryDate() {
     if (
@@ -42,7 +46,7 @@ export default class VisaStatus extends React.Component {
           <select
             className="ui right labeled dropdown"
             value={this.props.visaStatus ? this.props.visaStatus : ""}
-            onChange={this.updateContact}
+            onChange={this.saveVisaType}
             name="visaStatus"
           >
             <option value="" disabled hidden>
