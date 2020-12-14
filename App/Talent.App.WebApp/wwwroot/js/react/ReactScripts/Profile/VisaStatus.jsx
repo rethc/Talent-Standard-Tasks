@@ -7,13 +7,30 @@ export default class VisaStatus extends React.Component {
   constructor(props) {
     super(props);
 
-    this.saveVisaType = this.saveVisaType.bind(this);
+    this.handleVisaType = this.handleVisaType.bind(this);
+    this.handleVisaExpiryDate = this.handleVisaExpiryDate.bind(this);
+    this.saveVisa = this.saveVisa.bind(this);
   }
 
-  saveVisaType(event) {
+  saveVisa() {
+    const data = {
+      visaStatus: this.props.visaStatus,
+      visaExpiryDate: this.props.visaExpiryDate,
+    };
+    this.props.saveProfileData(data);
+  }
+
+  handleVisaType(event) {
     const data = {};
     data[event.target.name] = event.target.value;
     this.props.saveProfileData(data);
+  }
+
+  handleVisaExpiryDate(date) {
+    const data = {
+      visaExpiryDate: date,
+    };
+    this.props.updateProfileData(data);
   }
 
   renderExpiryDate() {
@@ -22,27 +39,26 @@ export default class VisaStatus extends React.Component {
       this.props.visaStatus == "Student Visa"
     ) {
       return (
-        <div className="six wide column">
-          <label>Visa expiry date</label>
+        <div>
+          <h5>Visa expiry date</h5>
           <DatePicker
             dateFormat="DD/MM/YYYY"
-            name="expiry"
+            name="visaExpiryDate"
             selected={
-              Moment(this.props.visaExpiryDate)
+              this.props.visaExpiryDate
                 ? Moment(this.props.visaExpiryDate)
                 : Moment()
             }
-            onChange={this.handleChangeExpiryDate}
+            onChange={this.handleVisaExpiryDate}
           />
-          <div className="four wide column">
-            <button
-              type="button"
-              className="ui teal button"
-              onClick={this.saveContact}
-            >
-              Save
-            </button>
-          </div>
+
+          <button
+            type="button"
+            className="ui teal button"
+            onClick={this.saveVisa}
+          >
+            Save
+          </button>
         </div>
       );
     }
@@ -54,9 +70,9 @@ export default class VisaStatus extends React.Component {
         <div className="six wide column">
           <h5>Visa type</h5>
           <select
-            className="ui right labeled dropdown"
+            className="six wide column"
             value={this.props.visaStatus ? this.props.visaStatus : ""}
-            onChange={this.saveVisaType}
+            onChange={this.handleVisaType}
             name="visaStatus"
           >
             <option value="" disabled hidden>
