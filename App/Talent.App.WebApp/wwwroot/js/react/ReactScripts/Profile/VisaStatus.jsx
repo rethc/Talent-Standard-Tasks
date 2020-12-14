@@ -39,8 +39,8 @@ export default class VisaStatus extends React.Component {
       this.props.visaStatus == "Student Visa"
     ) {
       return (
-        <div>
-          <h5>Visa expiry date</h5>
+        <div className="ten wide column">
+          <h5 style={{ margin: "3px" }}>Visa expiry date</h5>
           <DatePicker
             dateFormat="DD/MM/YYYY"
             name="visaExpiryDate"
@@ -51,7 +51,6 @@ export default class VisaStatus extends React.Component {
             }
             onChange={this.handleVisaExpiryDate}
           />
-
           <button
             type="button"
             className="ui teal button"
@@ -70,7 +69,7 @@ export default class VisaStatus extends React.Component {
         <div className="six wide column">
           <h5>Visa type</h5>
           <select
-            className="six wide column"
+            className="ui right labeled dropdown"
             value={this.props.visaStatus ? this.props.visaStatus : ""}
             onChange={this.handleVisaType}
             name="visaStatus"
@@ -84,7 +83,7 @@ export default class VisaStatus extends React.Component {
             <option value="Student Visa">Student Visa</option>
           </select>
         </div>
-        <div className="six wide column">{this.renderExpiryDate()}</div>
+        {this.renderExpiryDate()}
       </div>
     );
   }
