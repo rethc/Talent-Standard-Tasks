@@ -10,7 +10,11 @@ export default class VisaStatus extends React.Component {
     this.saveVisaType = this.saveVisaType.bind(this);
   }
 
-  saveVisaType() {}
+  saveVisaType(event) {
+    const data = {};
+    data[event.target.name] = event.target.value;
+    this.props.saveProfileData(data);
+  }
 
   renderExpiryDate() {
     if (
@@ -18,9 +22,8 @@ export default class VisaStatus extends React.Component {
       this.props.visaStatus == "Student Visa"
     ) {
       return (
-        <div>
+        <div className="six wide column">
           <label>Visa expiry date</label>
-          <br />
           <DatePicker
             dateFormat="DD/MM/YYYY"
             name="expiry"
@@ -31,10 +34,17 @@ export default class VisaStatus extends React.Component {
             }
             onChange={this.handleChangeExpiryDate}
           />
+          <div className="four wide column">
+            <button
+              type="button"
+              className="ui teal button"
+              onClick={this.saveContact}
+            >
+              Save
+            </button>
+          </div>
         </div>
       );
-    } else {
-      return <div />;
     }
   }
 
@@ -42,7 +52,7 @@ export default class VisaStatus extends React.Component {
     return (
       <div className="row">
         <div className="six wide column">
-          <label>Visa type</label>
+          <h5>Visa type</h5>
           <select
             className="ui right labeled dropdown"
             value={this.props.visaStatus ? this.props.visaStatus : ""}
@@ -59,15 +69,6 @@ export default class VisaStatus extends React.Component {
           </select>
         </div>
         <div className="six wide column">{this.renderExpiryDate()}</div>
-        <div className="four wide column">
-          <button
-            type="button"
-            className="ui teal button"
-            onClick={this.saveContact}
-          >
-            Save
-          </button>
-        </div>
       </div>
     );
   }
