@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import { SingleInput } from "../Form/SingleInput.jsx";
 import DatePicker from "react-datepicker";
+import { Grid } from "semantic-ui-react";
 import Moment from "moment";
 
 export default class VisaStatus extends React.Component {
@@ -34,14 +35,12 @@ export default class VisaStatus extends React.Component {
   }
 
   renderExpiryDate() {
-    if (
-      this.props.visaStatus == "Work Visa" ||
-      this.props.visaStatus == "Student Visa"
-    ) {
-      return (
-        <div className="ten wide column">
-          <h5 style={{ margin: "3px" }}>Visa expiry date</h5>
+    return (
+      <div>
+        <Grid.Column>
+          <h5>Visa expiry date</h5>
           <DatePicker
+            wrapperClassName="datePicker"
             dateFormat="DD/MM/YYYY"
             name="visaExpiryDate"
             selected={
@@ -53,37 +52,44 @@ export default class VisaStatus extends React.Component {
           />
           <button
             type="button"
-            className="ui teal button"
+            className="ui right floated teal button"
             onClick={this.saveVisa}
           >
             Save
           </button>
-        </div>
-      );
-    }
+        </Grid.Column>
+      </div>
+    );
   }
 
   render() {
     return (
-      <div className="row">
-        <div className="six wide column">
-          <h5>Visa type</h5>
-          <select
-            className="ui right labeled dropdown"
-            value={this.props.visaStatus ? this.props.visaStatus : ""}
-            onChange={this.handleVisaType}
-            name="visaStatus"
-          >
-            <option value="" disabled hidden>
-              Visa type
-            </option>
-            <option value="Citizen">Citizen</option>
-            <option value="Permanent Resident">Permanent Resident</option>
-            <option value="Work Visa">Work Visa</option>
-            <option value="Student Visa">Student Visa</option>
-          </select>
-        </div>
-        {this.renderExpiryDate()}
+      <div className="ui sixteen wide column">
+        <Grid columns={3}>
+          <Grid.Row>
+            <Grid.Column>
+              <h5>Visa type</h5>
+              <select
+                className="ui right labeled dropdown"
+                value={this.props.visaStatus ? this.props.visaStatus : ""}
+                onChange={this.handleVisaType}
+                name="visaStatus"
+              >
+                <option value="" disabled hidden>
+                  Visa type
+                </option>
+                <option value="Citizen">Citizen</option>
+                <option value="Permanent Resident">Permanent Resident</option>
+                <option value="Work Visa">Work Visa</option>
+                <option value="Student Visa">Student Visa</option>
+              </select>
+            </Grid.Column>
+            {this.props.visaStatus === "Work Visa" ||
+            this.props.visaStatus === "Student Visa"
+              ? this.renderExpiryDate()
+              : ""}
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
