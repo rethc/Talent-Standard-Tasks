@@ -5,6 +5,12 @@ import { SingleInput } from "../Form/SingleInput.jsx";
 export default class TalentStatus extends React.Component {
   constructor(props) {
     super(props);
+    this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+  }
+
+  handleCheckBoxChange(event) {
+    const data = { jobSeekingStatus: { status: [event.target.value] } };
+    this.props.saveProfileData(data);
   }
 
   renderStatus() {
@@ -17,32 +23,32 @@ export default class TalentStatus extends React.Component {
           <Checkbox
             radio
             label="Actively looking for a job"
-            value="1"
-            onChange={this.handleChange}
+            value="Actively looking for a job"
+            onChange={this.handleCheckBoxChange}
           />
         </Form.Field>
         <Form.Field>
           <Checkbox
             radio
             label="Not looking for a job at the moment"
-            value="2"
-            onChange={this.handleChange}
+            value="Not looking for a job at the moment"
+            onChange={this.handleCheckBoxChange}
           />
         </Form.Field>
         <Form.Field>
           <Checkbox
             radio
             label="Currently employed but open to offers"
-            value="3"
-            onChange={this.handleChange}
+            value="Currently employed but open to offers"
+            onChange={this.handleCheckBoxChange}
           />
         </Form.Field>
         <Form.Field>
           <Checkbox
             radio
             label="Will be available on later date"
-            value="4"
-            onChange={this.handleChange}
+            value="Will be available on later date"
+            onChange={this.handleCheckBoxChange}
           />
         </Form.Field>
       </div>
