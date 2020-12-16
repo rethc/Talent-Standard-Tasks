@@ -7,5 +7,13 @@ export default class TalentStatus extends React.Component {
     super(props);
   }
 
-  render() {}
+  render() {
+    return (
+      <div className="ui grid">
+        <div className="row">
+          <div className="sixteen wide column">Test</div>
+        </div>
+      </div>
+    );
+  }
 }
