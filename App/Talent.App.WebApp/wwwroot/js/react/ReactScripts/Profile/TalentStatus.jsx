@@ -9,7 +9,7 @@ export default class TalentStatus extends React.Component {
   }
 
   handleCheckBoxChange(event) {
-    const data = { jobSeekingStatus: { status: [event.target.value] } };
+    const data = { jobSeekingStatus: { status: event.target.value } };
     this.props.saveProfileData(data);
   }
 
