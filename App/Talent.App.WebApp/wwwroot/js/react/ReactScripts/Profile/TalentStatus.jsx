@@ -14,6 +14,10 @@ export default class TalentStatus extends React.Component {
   }
 
   renderStatus() {
+    let checkbox = "Actively looking for a job";
+
+    if (this.props.status != null) checkbox = this.props.status.status;
+
     return (
       <div>
         <Form.Field>
@@ -22,6 +26,7 @@ export default class TalentStatus extends React.Component {
         <Form.Field>
           <Checkbox
             radio
+            name="statusRadio"
             label="Actively looking for a job"
             value="Actively looking for a job"
             onChange={this.handleCheckBoxChange}
@@ -30,6 +35,7 @@ export default class TalentStatus extends React.Component {
         <Form.Field>
           <Checkbox
             radio
+            name="statusRadio"
             label="Not looking for a job at the moment"
             value="Not looking for a job at the moment"
             onChange={this.handleCheckBoxChange}
@@ -38,6 +44,7 @@ export default class TalentStatus extends React.Component {
         <Form.Field>
           <Checkbox
             radio
+            name="statusRadio"
             label="Currently employed but open to offers"
             value="Currently employed but open to offers"
             onChange={this.handleCheckBoxChange}
@@ -46,6 +53,7 @@ export default class TalentStatus extends React.Component {
         <Form.Field>
           <Checkbox
             radio
+            name="statusRadio"
             label="Will be available on later date"
             value="Will be available on later date"
             onChange={this.handleCheckBoxChange}
