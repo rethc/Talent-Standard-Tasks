@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import { Form, Radio } from "semantic-ui-react";
 import { SingleInput } from "../Form/SingleInput.jsx";
+import DatePicker from "react-datepicker";
 
 export default class TalentStatus extends React.Component {
   constructor(props) {
@@ -12,6 +13,17 @@ export default class TalentStatus extends React.Component {
   handleCheckBoxChange(e, { value }) {
     const data = { jobSeekingStatus: { status: value } };
     this.props.saveProfileData(data);
+  }
+
+  renderDate() {
+    return (
+      <div>
+        <Form.Field>
+          <label>Availability date</label>
+        </Form.Field>
+        <DatePicker dateFormat="DD/MM/YYYY" name="availability" />
+      </div>
+    );
   }
 
   render() {
@@ -65,6 +77,11 @@ export default class TalentStatus extends React.Component {
                 />
               </Form.Field>
             </Form>
+          </div>
+          <div className="sixteen wide column">
+            {this.props.status.status === "Will be available on later date"
+              ? this.renderDate()
+              : ""}
           </div>
         </div>
       </div>

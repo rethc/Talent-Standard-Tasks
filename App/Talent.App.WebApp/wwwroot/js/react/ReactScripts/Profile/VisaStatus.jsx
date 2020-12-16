@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import { SingleInput } from "../Form/SingleInput.jsx";
 import DatePicker from "react-datepicker";
-import { Grid } from "semantic-ui-react";
+import { Grid, Form } from "semantic-ui-react";
 import Moment from "moment";
 
 export default class VisaStatus extends React.Component {
@@ -38,7 +38,9 @@ export default class VisaStatus extends React.Component {
     return (
       <div>
         <Grid.Column>
-          <h5>Visa expiry date</h5>
+          <Form.Field>
+            <label>Visa expiry date</label>
+          </Form.Field>
           <DatePicker
             wrapperClassName="datePicker"
             dateFormat="DD/MM/YYYY"
@@ -68,7 +70,9 @@ export default class VisaStatus extends React.Component {
         <Grid columns={3}>
           <Grid.Row>
             <Grid.Column>
-              <h5>Visa type</h5>
+              <Form.Field>
+                <label>Visa type </label>
+              </Form.Field>
               <select
                 className="ui right labeled dropdown"
                 value={this.props.visaStatus ? this.props.visaStatus : ""}
