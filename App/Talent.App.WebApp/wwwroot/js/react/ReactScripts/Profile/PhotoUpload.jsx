@@ -15,6 +15,7 @@ export default class PhotoUpload extends Component {
 
     this.handleClick = this.handleClick.bind(this);
     this.imageUploadHandler = this.imageUploadHandler.bind(this);
+    this.upload = this.upload.bind(this);
   }
 
   handleClick() {
@@ -29,6 +30,53 @@ export default class PhotoUpload extends Component {
 
       this.props.updateProfileData({ profilePhotoUrl: imageURL });
     }
+  }
+
+  upload() {
+    var cookies = Cookies.get("talentAuthToken");
+    const data = new FormData();
+    data.append("photo", this.imageRef.current.files[0]);
+
+    $.ajax({
+      url: this.props.savePhotoUrl,
+      headers: {
+        Authorization: "Bearer " + cookies,
+      },
+      type: "POST",
+      data: data,
+      processData: false,
+      contentType: false,
+      success: function (res) {
+        if (res.success === true) {
+          this.setState({
+            uploaded: true,
+            uploading: false,
+          });
+
+          TalentUtil.notification.show(
+            "Updated profile photo successfully",
+            "success",
+            null,
+            null
+          );
+        } else {
+          this.setState({
+            uploading: false,
+          });
+
+          TalentUtil.notification.show(
+            "Error uploading profile photo",
+            "error",
+            null,
+            null
+          );
+        }
+      }.bind(this),
+    });
+
+    this.setState({
+      uploading: true,
+    });
   }
 
   render() {
@@ -56,7 +104,14 @@ export default class PhotoUpload extends Component {
           />
         </div>
         {!this.state.uploaded && (
-          <Button type="button" color="vk" icon="upload" content="Upload" />
+          <Button
+            type="button"
+            color="vk"
+            icon="upload"
+            content="Upload"
+            disabled={this.state.uploading}
+            onClick={this.upload}
+          />
         )}
       </div>
     );

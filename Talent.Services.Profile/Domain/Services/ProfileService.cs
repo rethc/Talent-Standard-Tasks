@@ -354,7 +354,44 @@ namespace Talent.Services.Profile.Domain.Services
 
         public async Task<bool> UpdateTalentPhoto(string talentId, IFormFile file)
         {
-            //Your code here;
+            // Get the file extension
+            var fileExtension = Path.GetExtension(file.FileName);
+            List<string> acceptedExtensions = new List<string> { ".jpg", ".png", ".gif", ".jpeg" };
+
+            // If file has extension and not in the acceptedExtensions list, return false
+            if (fileExtension != null && !acceptedExtensions.Contains(fileExtension.ToLower()))
+            {
+                return false;
+            }
+
+            // Get User Profile by id, if not exist, return false
+            var profile = (await _userRepository.Get(x => x.Id == talentId)).SingleOrDefault();
+
+            if (profile == null)
+            {
+                return false;
+            }
+            // Save new file and get the newFileName. If newFileName is null or whiteSpace, return false;
+            var newFileName = await _fileService.SaveFile(file, FileType.ProfilePhoto);
+            // if newFileName has meaning, get the oldFileName and delete the old file.
+            // Then assign newFileName/Url to profile.ProfilePhoto/ProfilePhotoUrl and update user profile 
+            if (!string.IsNullOrWhiteSpace(newFileName))
+            {
+                var oldFileName = profile.ProfilePhoto;
+
+                if (!string.IsNullOrWhiteSpace(oldFileName))
+                {
+                    await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
+                }
+
+                profile.ProfilePhoto = newFileName;
+                profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
+
+                await _userRepository.Update(profile);
+                return true;
+            }
+
+            return false;
             throw new NotImplementedException();
         }
 
