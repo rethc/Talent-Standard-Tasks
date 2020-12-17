@@ -392,7 +392,6 @@ namespace Talent.Services.Profile.Domain.Services
             }
 
             return false;
-            throw new NotImplementedException();
         }
 
         public async Task<bool> AddTalentVideo(string talentId, IFormFile file)

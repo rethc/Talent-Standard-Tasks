@@ -63,51 +63,49 @@ export default class TalentStatus extends React.Component {
       <div className="ui grid">
         <div className="row">
           <div className="sixteen wide column">
-            <Form>
-              <Form.Field>
-                <label>Current Status</label>
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  name="checkboxRadioGroup"
-                  label="Actively looking for a job"
-                  value="Actively looking for a job"
-                  checked={selectedStatus === "Actively looking for a job"}
-                  onChange={this.handleRadioStatusChange}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  name="checkboxRadioGroup"
-                  label="Not looking for a job at the moment"
-                  value="Not looking for a job at the moment"
-                  checked={
-                    selectedStatus === "Not looking for a job at the moment"
-                  }
-                  onChange={this.handleRadioStatusChange}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  name="checkboxRadioGroup"
-                  label="Currently employed but open to offers"
-                  value="Currently employed but open to offers"
-                  checked={
-                    selectedStatus === "Currently employed but open to offers"
-                  }
-                  onChange={this.handleRadioStatusChange}
-                />
-              </Form.Field>
-              <Form.Field>
-                <Radio
-                  name="checkboxRadioGroup"
-                  label="Will be available on later date"
-                  value="Will be available on later date"
-                  checked={selectedStatus === "Will be available on later date"}
-                  onChange={this.handleRadioStatusChange}
-                />
-              </Form.Field>
-            </Form>
+            <Form.Field>
+              <label>Current Status</label>
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                name="checkboxRadioGroup"
+                label="Actively looking for a job"
+                value="Actively looking for a job"
+                checked={selectedStatus === "Actively looking for a job"}
+                onChange={this.handleRadioStatusChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                name="checkboxRadioGroup"
+                label="Not looking for a job at the moment"
+                value="Not looking for a job at the moment"
+                checked={
+                  selectedStatus === "Not looking for a job at the moment"
+                }
+                onChange={this.handleRadioStatusChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                name="checkboxRadioGroup"
+                label="Currently employed but open to offers"
+                value="Currently employed but open to offers"
+                checked={
+                  selectedStatus === "Currently employed but open to offers"
+                }
+                onChange={this.handleRadioStatusChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <Radio
+                name="checkboxRadioGroup"
+                label="Will be available on later date"
+                value="Will be available on later date"
+                checked={selectedStatus === "Will be available on later date"}
+                onChange={this.handleRadioStatusChange}
+              />
+            </Form.Field>
           </div>
           <div className="sixteen wide column">
             {this.props.status.status === "Will be available on later date"
