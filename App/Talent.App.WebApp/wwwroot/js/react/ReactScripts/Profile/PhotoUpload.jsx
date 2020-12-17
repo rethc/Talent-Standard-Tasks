@@ -10,9 +10,50 @@ export default class PhotoUpload extends Component {
       uploaded: true,
       uploading: false,
     };
+
+    this.imageRef = React.createRef();
+
+    this.handleClick = this.handleClick.bind(this);
+    this.imageUploadHandler = this.imageUploadHandler.bind(this);
+  }
+
+  handleClick() {
+    this.imageRef.current.click();
+  }
+
+  imageUploadHandler() {
+    if (this.imageRef.current.files.length > 0) {
+      const imageURL = URL.createObjectURL(this.imageRef.current.files[0]);
+
+      this.setState({ uploaded: false });
+
+      this.props.updateProfileData({ profilePhotoUrl: imageURL });
+    }
   }
 
   render() {
-    return <div className="ui sixteen wide column"></div>;
+    return (
+      <div className="ui sixteen wide column">
+        <Form.Field>
+          <label>Profile Photo</label>
+        </Form.Field>
+        <div className="imageUpload" onClick={this.handleClick}>
+          {this.props.imageId ? (
+            <Image src={this.props.imageId} size="huge" circular />
+          ) : (
+            <Image>
+              <Icon name="camera retro" size="huge" circular />
+            </Image>
+          )}
+          <input
+            type="file"
+            style={{ display: "none" }}
+            accept="image/png, image/jpeg"
+            ref={this.imageRef}
+            onChange={this.imageUploadHandler}
+          />
+        </div>
+      </div>
+    );
   }
 }
