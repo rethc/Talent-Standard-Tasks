@@ -45,6 +45,8 @@ export default class PhotoUpload extends Component {
               <Icon name="camera retro" size="huge" circular />
             </Image>
           )}
+
+          {/** Hide a file upload, keep a ref to it, then when you click the image invoke the imageUploadHandler click method */}
           <input
             type="file"
             style={{ display: "none" }}
@@ -53,6 +55,9 @@ export default class PhotoUpload extends Component {
             onChange={this.imageUploadHandler}
           />
         </div>
+        {!this.state.uploaded && (
+          <Button type="button" color="vk" icon="upload" content="Upload" />
+        )}
       </div>
     );
   }
