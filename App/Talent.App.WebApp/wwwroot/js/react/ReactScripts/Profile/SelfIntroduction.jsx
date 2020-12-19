@@ -14,18 +14,16 @@ export default class SelfIntroduction extends React.Component {
         <div className="four wide column">
           <h3>Description</h3>
         </div>
-        <div className="ten wide column">
-          <div className="field">
-            <input
-              type="text"
-              value={this.props.summary ? this.props.summary : ""}
-              label="Summary"
-              name="summary"
-              onChange={this.updateDescription}
-              maxLength={150}
-              placeholder="Please provide a short summary about yourself"
-            />
-          </div>
+        <div className="twelve wide column">
+          <input
+            type="text"
+            value={this.props.summary ? this.props.summary : ""}
+            label="Summary"
+            name="summary"
+            onChange={this.updateDescription}
+            maxLength={150}
+            placeholder="Please provide a short summary about yourself"
+          />
         </div>
       </React.Fragment>
     );
