@@ -70,6 +70,7 @@ namespace Talent.Services.Profile.Domain.Services
                     var languages = profile.Languages.Select(x => ViewModelFromLanguage(x)).ToList();
 
 
+
                     var result = new TalentProfileViewModel
                     {
                         Id = profile.Id,
@@ -377,15 +378,16 @@ namespace Talent.Services.Profile.Domain.Services
             // Then assign newFileName/Url to profile.ProfilePhoto/ProfilePhotoUrl and update user profile 
             if (!string.IsNullOrWhiteSpace(newFileName))
             {
-                var oldFileName = profile.ProfilePhoto;
+                //var oldFileName = profile.ProfilePhoto;
 
-                if (!string.IsNullOrWhiteSpace(oldFileName))
-                {
-                    await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
-                }
+                //if (!string.IsNullOrWhiteSpace(oldFileName))
+                //{
+                   //await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
+                //}
 
                 profile.ProfilePhoto = newFileName;
-                profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
+                profile.ProfilePhotoUrl = newFileName;
+                //profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
 
                 await _userRepository.Update(profile);
                 return true;

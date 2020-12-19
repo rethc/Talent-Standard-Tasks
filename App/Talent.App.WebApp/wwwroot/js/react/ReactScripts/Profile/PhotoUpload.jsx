@@ -36,6 +36,7 @@ export default class PhotoUpload extends Component {
     var cookies = Cookies.get("talentAuthToken");
     const data = new FormData();
     data.append("photo", this.imageRef.current.files[0]);
+    console.log(data.get("photo"));
 
     $.ajax({
       url: this.props.savePhotoUrl,
@@ -62,16 +63,16 @@ export default class PhotoUpload extends Component {
             null
           );
         } else {
-          this.setState({
-            uploading: false,
-          });
-
           TalentUtil.notification.show(
             "Error uploading profile photo",
             "error",
             null,
             null
           );
+
+          this.setState({
+            uploading: false,
+          });
         }
       }.bind(this),
       error: function (res, a, b) {
