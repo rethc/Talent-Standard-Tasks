@@ -302,13 +302,13 @@ export default class AccountProfile extends React.Component {
                         }
                       />
                     </FormItemWrapper>
+                    **/}
                     <SelfIntroduction
                       summary={this.state.profileData.summary}
                       description={this.state.profileData.description}
                       updateProfileData={this.updateAndSaveData}
                       updateWithoutSave={this.updateWithoutSave}
                     />
-                    **/}
                   </div>
                 </form>
               </div>
