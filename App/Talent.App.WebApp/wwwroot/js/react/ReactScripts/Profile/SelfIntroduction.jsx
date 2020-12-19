@@ -1,7 +1,6 @@
 ﻿/* Self introduction section */
 import React, { Component } from "react";
 import Cookies from "js-cookie";
-import { ChildSingleInput, ChildTextareaInput } from "../Form/SingleInput.jsx";
 
 export default class SelfIntroduction extends React.Component {
   constructor(props) {
@@ -15,15 +14,35 @@ export default class SelfIntroduction extends React.Component {
           <h3>Description</h3>
         </div>
         <div className="twelve wide column">
-          <input
-            type="text"
-            value={this.props.summary ? this.props.summary : ""}
-            label="Summary"
-            name="summary"
-            onChange={this.updateDescription}
-            maxLength={150}
-            placeholder="Please provide a short summary about yourself"
-          />
+          <div className="field">
+            <input
+              type="text"
+              value={this.props.summary ? this.props.summary : ""}
+              label="Summary"
+              name="summary"
+              onChange={this.updateDescription}
+              maxLength={150}
+              placeholder="Please provide a short summary about yourself"
+            />
+          </div>
+          <p>Summary must be no more than 150 characters.</p>
+          <div className="field">
+            <textarea
+              maxLength={600}
+              name="description"
+              placeholder="Please tell us about any hobbies, additional expertise, or anything else you’d like to add."
+              value={this.props.description ? this.props.description : ""}
+              onChange={this.updateDescription}
+            ></textarea>
+          </div>
+          <p>Description must be between 150-600 characters.</p>
+          <button
+            type="button"
+            className="ui right floated teal button"
+            onClick={this.saveDescription}
+          >
+            Save
+          </button>
         </div>
       </React.Fragment>
     );
