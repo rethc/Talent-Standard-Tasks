@@ -53,6 +53,8 @@ export default class PhotoUpload extends Component {
             uploading: false,
           });
 
+          this.props.loadData();
+
           TalentUtil.notification.show(
             "Updated profile photo successfully",
             "success",
@@ -72,6 +74,11 @@ export default class PhotoUpload extends Component {
           );
         }
       }.bind(this),
+      error: function (res, a, b) {
+        console.log(res);
+        console.log(a);
+        console.log(b);
+      },
     });
 
     this.setState({
