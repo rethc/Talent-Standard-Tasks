@@ -44,8 +44,8 @@ export default class PhotoUpload extends Component {
       },
       type: "POST",
       data: data,
-      processData: true,
-      contentType: true,
+      processData: false,
+      contentType: false,
       success: function (res) {
         if (res.success === true) {
           this.setState({
