@@ -5,6 +5,40 @@ import Cookies from "js-cookie";
 export default class SelfIntroduction extends React.Component {
   constructor(props) {
     super(props);
+
+    this.updateDescription = this.updateDescription.bind(this);
+    this.saveDescription = this.saveDescription.bind(this);
+  }
+
+  updateDescription(event) {
+    const data = {};
+    data[event.target.name] = event.target.value;
+    this.props.updateWithoutSave(data);
+  }
+
+  saveDescription() {
+    const data = {
+      summary: this.props.summary,
+      description: this.props.description,
+    };
+
+    if (data.description == "" || data.summary == "") {
+      TalentUtil.notification.show(
+        "Please enter a summary and description",
+        "error",
+        null,
+        null
+      );
+    } else if (data.description != "" && data.description.length > 150) {
+      this.props.updateProfileData(data);
+    } else {
+      TalentUtil.notification.show(
+        "Description too short",
+        "error",
+        null,
+        null
+      );
+    }
   }
 
   render() {
