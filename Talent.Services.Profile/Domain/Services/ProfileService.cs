@@ -68,6 +68,7 @@ namespace Talent.Services.Profile.Domain.Services
 
                     var skills = profile.Skills.Select(x => ViewModelFromSkill(x)).ToList();
                     var languages = profile.Languages.Select(x => ViewModelFromLanguage(x)).ToList();
+                    var experiences = profile.Experience.Select(x => ViewModelFromExperience(x)).ToList();
 
 
 
@@ -98,6 +99,7 @@ namespace Talent.Services.Profile.Domain.Services
                         ProfilePhotoUrl = profile.ProfilePhotoUrl,
                         VideoName = profile.VideoName,
                         VideoUrl = videoUrl,
+                        Experience = experiences
                     };
                     return result;
                 }
@@ -171,6 +173,25 @@ namespace Talent.Services.Profile.Domain.Services
                         newLanguages.Add(language);
                     }
                     existingUser.Languages = newLanguages;
+
+
+                    var newExperiences = new List<UserExperience>();
+                    foreach (var item in model.Experience)
+                    {
+                        var experience = existingUser.Experience.SingleOrDefault(x => x.Id == item.Id);
+                        if (experience == null)
+                        {
+                            experience = new UserExperience
+                            {
+                                Id = ObjectId.GenerateNewId().ToString()
+                            };
+                        }
+                        UpdateExperienceFromView(item, experience);
+                        newExperiences.Add(experience);
+                    }
+
+                    existingUser.Experience = newExperiences;
+
 
 
                     existingUser.UpdatedBy = updaterId;
@@ -489,6 +510,14 @@ namespace Talent.Services.Profile.Domain.Services
             original.Language = model.Name;
         }
 
+        protected void UpdateExperienceFromView(ExperienceViewModel model, UserExperience original)
+        {
+            original.Company = model.Company;
+            original.Position = model.Position;
+            original.Responsibilities = model.Responsibilities;
+            original.Start = model.Start;
+            original.End = model.End;
+        }
 
         #endregion
 
@@ -513,6 +542,21 @@ namespace Talent.Services.Profile.Domain.Services
                 Name = language.Language
             };
         }
+
+
+        protected ExperienceViewModel ViewModelFromExperience(UserExperience experience)
+        {
+            return new ExperienceViewModel
+            {
+                Id = experience.Id,
+                Company = experience.Company,
+                Position = experience.Position,
+                Responsibilities = experience.Responsibilities,
+                Start = experience.Start,
+                End = experience.End
+            };
+        }
+
 
         #endregion
 
