@@ -1,6 +1,6 @@
 # Talent Standard Task Code Repository
 
-## Talent profile page Tasks
+### Talent profile page Tasks
 
 LinkedIn url & GitHub url
 Description
