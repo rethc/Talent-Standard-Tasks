@@ -22,7 +22,7 @@ Developed a Talent feed page for employers to view Talents and shortlist potenti
 
 - Developed a Talent feed page for employers to view Talents and shortlist potential candidates for hire.
 
-Production code on MVP Studio GitLab
+*Note: Production code on MVP Studio GitLab*
 
 **Stack:** JavaScript, React.JS, C#, ASP.NET MVC, MongoDB, Microservices.
 
