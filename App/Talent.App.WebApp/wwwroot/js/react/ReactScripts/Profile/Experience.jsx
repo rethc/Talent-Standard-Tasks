@@ -3,7 +3,7 @@ import React from "react";
 import Cookies from "js-cookie";
 import DatePicker from "react-datepicker";
 import Moment from "moment";
-import { Icon, Table } from "semantic-ui-react";
+import { Icon, Table, Form } from "semantic-ui-react";
 
 export default class Experience extends React.Component {
   constructor(props) {
@@ -319,7 +319,7 @@ export default class Experience extends React.Component {
                 <Table.HeaderCell>
                   <button
                     type="button"
-                    className="ui teal button"
+                    className="ui right floated teal button"
                     onClick={() => this.setState({ showAddSection: true })}
                   >
                     <Icon name="plus" />
@@ -346,7 +346,9 @@ export default class Experience extends React.Component {
       <div className="ui grid">
         <div className="row">
           <div className="eight wide column">
-            <label>Company:</label>
+            <Form.Field>
+              <label>Company:</label>
+            </Form.Field>
             <input
               type="text"
               name="company"
@@ -361,7 +363,9 @@ export default class Experience extends React.Component {
             />
           </div>
           <div className="eight wide column">
-            <label>Position:</label>
+            <Form.Field>
+              <label>Position:</label>
+            </Form.Field>
             <input
               type="text"
               name="position"
@@ -378,8 +382,9 @@ export default class Experience extends React.Component {
         </div>
         <div className="row">
           <div className="eight wide column">
-            <label>Start Date:</label>
-            <br />
+            <Form.Field>
+              <label>Start Date:</label>
+            </Form.Field>
             <DatePicker
               dateFormat="DD/MM/YYYY"
               name="start"
@@ -392,8 +397,9 @@ export default class Experience extends React.Component {
             />
           </div>
           <div className="eight wide column">
-            <label>End Date:</label>
-            <br />
+            <Form.Field>
+              <label>End Date:</label>
+            </Form.Field>
             <DatePicker
               disabled={!this.state.isEndEnabled}
               name="end"
@@ -408,7 +414,9 @@ export default class Experience extends React.Component {
         </div>
         <div className="row">
           <div className="sixteen wide column">
-            <label>Responsibilities:</label>
+            <Form.Field>
+              <label>Responsibilities:</label>
+            </Form.Field>
             <input
               type="text"
               name="responsibilities"
