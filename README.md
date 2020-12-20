@@ -1,5 +1,7 @@
 # Project Talent standard tasks
 
+MVP Studio is an incubator for software start-ups. I am currently working on project Talent which is a web application that connects job seekers and employers, with the aim of creating a better recruitment experience.
+
 ### Talent Profile Page Tasks
 
 - LinkedIn url & GitHub url
@@ -17,7 +19,7 @@
 
 Production code on MVP Studio GitLab
 
-### Stack:###  JavaScript, React.JS, C#, ASP.NET MVC, MongoDB, Microservices.
+**Stack:** JavaScript, React.JS, C#, ASP.NET MVC, MongoDB, Microservices.
 
 ## Authors: 
 * Chesda Reth
