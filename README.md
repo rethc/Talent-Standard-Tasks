@@ -1,3 +1,19 @@
-## Talent Standard Task Code Repository
+# Talent Standard Task Code Repository
 
-This project will help interns at MVP Studio to understand how ReactJs, C# Web Api, MongoDb is used in Talent Code Architecture. 
+#Talent profile page Tasks
+
+LinkedIn url & GitHub url
+Description
+User Details Component
+Address
+Nationality
+Languages
+Skills
+Work experience
+Visa status
+Job seeking status
+Photo upload
+
+
+
+Click here for Module 1 deta
