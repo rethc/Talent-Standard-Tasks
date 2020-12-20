@@ -1,6 +1,7 @@
 ﻿/* Skill section */
 import React from "react";
 import Cookies from "js-cookie";
+import { Button, Table, Icon } from "semantic-ui-react";
 
 export default class Skill extends React.Component {
   constructor(props) {
@@ -230,16 +231,17 @@ export default class Skill extends React.Component {
             value={
               this.state.updateSkill.level
                 ? this.state.updateSkill.level
-                : language.level
+                : skill.level
             }
             onChange={this.handleupdateSkill}
             name="level"
           >
-            <option value="">Language Level</option>
-            <option value="Basic">Basic</option>
-            <option value="Conversational">Conversational</option>
-            <option value="Fluent">Fluent</option>
-            <option value="Native/Bilingual">Native/Bilingual</option>
+            <option value="" disabled hidden>
+              Skill Level
+            </option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Expert">Expert</option>
           </select>
         </Table.Cell>
         <Table.Cell>

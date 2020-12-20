@@ -243,7 +243,9 @@ export default class Language extends React.Component {
             onChange={this.handleUpdateLanguage}
             name="level"
           >
-            <option value="">Language Level</option>
+            <option value="" disabled hidden>
+              Language Level
+            </option>
             <option value="Basic">Basic</option>
             <option value="Conversational">Conversational</option>
             <option value="Fluent">Fluent</option>
