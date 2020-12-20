@@ -13,7 +13,7 @@ export default class Language extends React.Component {
       showAddSection: false,
 
       newLanguage: {
-        languages: this.props.languageData,
+        languages: props.languageData ? props.languageData : [],
       },
       addLanguage: {
         id: 0,
@@ -85,7 +85,7 @@ export default class Language extends React.Component {
 
     if (addLang.name == "" || addLang.level == "") {
       TalentUtil.notification.show(
-        "Please a valid language and level",
+        "Please enter a valid language and level",
         "error",
         null,
         null
