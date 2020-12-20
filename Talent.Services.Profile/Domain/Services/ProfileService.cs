@@ -176,7 +176,7 @@ namespace Talent.Services.Profile.Domain.Services
 
 
                     var newExperiences = new List<UserExperience>();
-                    foreach (var item in model.Experience)
+                    foreach (var item in talent.Experience)
                     {
                         var experience = existingUser.Experience.SingleOrDefault(x => x.Id == item.Id);
                         if (experience == null)
