@@ -9,7 +9,7 @@ Developed a Talent feed page for employers to view Talents and shortlist potenti
 ### Talent Profile Page Tasks
 
 - Developed a component that allow users to link their social accounts e.g. Linkedin, GitHub.
-- Developed the following components to allow users to update their profile
+- Developed the following components to allow users to update their profile:
   * Profile Picture
   * Brief Description 
   * Address
@@ -20,7 +20,7 @@ Developed a Talent feed page for employers to view Talents and shortlist potenti
   * Visa status
   * Job seeking status
 
-- Talent Feed page using ajax calls to retrieve data from the relevant controllers
+- Developed a Talent feed page for employers to view Talents and shortlist potential candidates for hire.
 
 Production code on MVP Studio GitLab
 
