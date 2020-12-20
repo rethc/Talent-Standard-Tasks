@@ -307,9 +307,8 @@ export default class Experience extends React.Component {
     return (
       <div className="ui sixteen wide column">
         {this.state.showAddSection ? this.renderAdd() : ""}
-        <br />
         <div>
-          <Table celled>
+          <Table>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Company</Table.HeaderCell>
@@ -474,7 +473,6 @@ export default class Experience extends React.Component {
             maxLength={20}
             onChange={this.handleUpdate}
           />
-          <br />
           <label>Start Date:</label>
           <DatePicker
             dateFormat="DD/MM/YYYY"
@@ -482,7 +480,6 @@ export default class Experience extends React.Component {
             selected={Moment(this.state.updateExperience.start)}
             onChange={this.handleUpdateStartDate}
           />
-          <br />
           <label>End Date:</label>
           <DatePicker
             dateFormat="DD/MM/YYYY"
@@ -490,7 +487,6 @@ export default class Experience extends React.Component {
             selected={Moment(this.state.updateExperience.end)}
             onChange={this.handleUpdateEndDate}
           />
-          <br />
           <label>Responsibilities:</label>
           <input
             type="text"
