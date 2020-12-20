@@ -252,7 +252,7 @@ export default class Skill extends React.Component {
             type="button"
             content="Update"
             onClick={() => {
-              this.updateSkill(language.id);
+              this.updateSkill(skill.id);
             }}
           />
 
