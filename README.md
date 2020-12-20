@@ -15,7 +15,9 @@
 - Photo upload
 - Talent Feed page using ajax calls to retrieve data from the relevant controllers
 
-Production code on GitLab
+Production code on MVP Studio GitLab
+
+### Stack:###  JavaScript, React.JS, C#, ASP.NET MVC, MongoDB, Microservices.
 
 ## Authors: 
 * Chesda Reth
