@@ -10,15 +10,15 @@ Developed a Talent feed page for employers to view Talents and shortlist potenti
 
 - Developed a component that allow users to link their social accounts e.g. Linkedin, GitHub.
 - Developed the following components to allow users to update their profile
-⋅⋅* Profile Picture
-⋅⋅* Brief Description 
-⋅⋅* Address
-⋅⋅* Nationality
-⋅⋅* Languages and competency 
-⋅⋅* Skills  and competency 
-⋅⋅* Work experience
-⋅⋅* Visa status
-⋅⋅* Job seeking status
+  * Profile Picture
+  * Brief Description 
+  * Address
+  * Nationality
+  * Languages and competency 
+  * Skills and competency 
+  * Work experience
+  * Visa status
+  * Job seeking status
 
 - Talent Feed page using ajax calls to retrieve data from the relevant controllers
 
