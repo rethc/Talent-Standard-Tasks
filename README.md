@@ -1,19 +1,25 @@
-# Talent Standard Task Code Repository
+# Project Talent standard tasks
 
-### Talent profile page Tasks
+### Talent Profile Page Tasks
 
 - LinkedIn url & GitHub url
 - Description
-User Details Component
-Address
-Nationality
-Languages
-Skills
-Work experience
-Visa status
-Job seeking status
-Photo upload
+- User Details Component
+- Address
+- Nationality
+- Languages
+- Skills
+- Work experience
+- Visa status
+- Job seeking status
+- Photo upload
+- Talent Feed page using ajax calls to retrieve data from the relevant controllers
 
+Production code on GitLab
 
+## Authors: 
+* Chesda Reth
+* MVP Studio
 
-Click here for Module 1 deta
+## Acknowledgements: 
+* MVP Studio
