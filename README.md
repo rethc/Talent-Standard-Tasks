@@ -2,8 +2,8 @@
 
 ### Talent profile page Tasks
 
-LinkedIn url & GitHub url
-Description
+- LinkedIn url & GitHub url
+- Description
 User Details Component
 Address
 Nationality
