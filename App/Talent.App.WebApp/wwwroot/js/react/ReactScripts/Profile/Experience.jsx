@@ -30,7 +30,7 @@ export default class Experience extends React.Component {
         responsibilities: "",
       },
       editId: "",
-      isEndEnabled: true,
+      isEndEnabled: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -98,9 +98,9 @@ export default class Experience extends React.Component {
         null,
         null
       );
-    } else if (endDate >= today) {
+    } else if (endDate > today) {
       TalentUtil.notification.show(
-        "Experience end date can't be today or in the future",
+        "Experience end date can't be in the future",
         "error",
         null,
         null
@@ -147,9 +147,9 @@ export default class Experience extends React.Component {
         null,
         null
       );
-    } else if (endDate >= today) {
+    } else if (endDate > today) {
       TalentUtil.notification.show(
-        "Experience end date can't be today or in the future",
+        "Experience end date can't be in the future",
         "error",
         null,
         null
