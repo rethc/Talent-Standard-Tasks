@@ -3,7 +3,7 @@ import React from "react";
 import Cookies from "js-cookie";
 import DatePicker from "react-datepicker";
 import Moment from "moment";
-import { Icon, Table, Form } from "semantic-ui-react";
+import { Icon, Table, Form, Button, Grid } from "semantic-ui-react";
 
 export default class Experience extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ export default class Experience extends React.Component {
         responsibilities: "",
       },
       editId: "",
-      isEndEnabled: false,
+      isEndEnabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -401,6 +401,7 @@ export default class Experience extends React.Component {
               <label>End Date:</label>
             </Form.Field>
             <DatePicker
+              dateFormat="DD/MM/YYYY"
               disabled={!this.state.isEndEnabled}
               name="end"
               selected={
@@ -454,78 +455,110 @@ export default class Experience extends React.Component {
   renderUpdateRow(experience) {
     return (
       <Table.Row key={experience.id}>
-        <Table.Cell>
-          <label>Company:</label>
-          <input
-            type="text"
-            name="company"
-            value={
-              this.state.updateExperience.company
-                ? this.state.updateExperience.company
-                : experience.company
-            }
-            placeholder="Company"
-            maxLength={20}
-            onChange={this.handleUpdate}
-          />
-          <label>Position:</label>
-          <input
-            type="text"
-            name="position"
-            value={
-              this.state.updateExperience.position
-                ? this.state.updateExperience.position
-                : experience.position
-            }
-            placeholder="Position"
-            maxLength={20}
-            onChange={this.handleUpdate}
-          />
-          <label>Start Date:</label>
-          <DatePicker
-            dateFormat="DD/MM/YYYY"
-            name="start"
-            selected={Moment(this.state.updateExperience.start)}
-            onChange={this.handleUpdateStartDate}
-          />
-          <label>End Date:</label>
-          <DatePicker
-            dateFormat="DD/MM/YYYY"
-            name="end"
-            selected={Moment(this.state.updateExperience.end)}
-            onChange={this.handleUpdateEndDate}
-          />
-          <label>Responsibilities:</label>
-          <input
-            type="text"
-            name="responsibilities"
-            value={
-              this.state.updateExperience.responsibilities
-                ? this.state.updateExperience.responsibilities
-                : experience.responsibilities
-            }
-            placeholder="Responsibilities"
-            maxLength={20}
-            onChange={this.handleUpdate}
-          />
-          <button
-            type="button"
-            className="ui teal button"
-            onClick={() => {
-              this.update(experience.id);
-            }}
-          >
-            Update
-          </button>
-          <button
-            type="button"
-            className="ui button"
-            onClick={() => {
-              this.cancelUpdate();
-            }}
-          >
-            Cancel
-          </button>
+        <Table.Cell colSpan="6">
+          <Grid>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Company:</label>
+                </Form.Field>
+                <input
+                  type="text"
+                  name="company"
+                  value={
+                    this.state.updateExperience.company
+                      ? this.state.updateExperience.company
+                      : experience.company
+                  }
+                  placeholder="Company"
+                  maxLength={20}
+                  onChange={this.handleUpdate}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Position:</label>
+                </Form.Field>
+                <input
+                  type="text"
+                  name="position"
+                  value={
+                    this.state.updateExperience.position
+                      ? this.state.updateExperience.position
+                      : experience.position
+                  }
+                  placeholder="Position"
+                  maxLength={20}
+                  onChange={this.handleUpdate}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Start Date:</label>
+                </Form.Field>
+                <DatePicker
+                  dateFormat="DD/MM/YYYY"
+                  name="start"
+                  selected={Moment(this.state.updateExperience.start)}
+                  onChange={this.handleUpdateStartDate}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Field>
+                  <label>End Date:</label>
+                </Form.Field>
+                <DatePicker
+                  dateFormat="DD/MM/YYYY"
+                  name="end"
+                  selected={Moment(this.state.updateExperience.end)}
+                  onChange={this.handleUpdateEndDate}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row columns={1}>
+              <Grid.Column>
+                <Form.Field>
+                  <label>Responsibilities:</label>
+                </Form.Field>
+                <input
+                  type="text"
+                  name="responsibilities"
+                  value={
+                    this.state.updateExperience.responsibilities
+                      ? this.state.updateExperience.responsibilities
+                      : experience.responsibilities
+                  }
+                  placeholder="Responsibilities"
+                  maxLength={20}
+                  onChange={this.handleUpdate}
+                />
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column>
+                <button
+                  type="button"
+                  className="ui teal button"
+                  onClick={() => {
+                    this.update(experience.id);
+                  }}
+                >
+                  Update
+                </button>
+                <button
+                  type="button"
+                  className="ui button"
+                  onClick={() => {
+                    this.cancelUpdate();
+                  }}
+                >
+                  Cancel
+                </button>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </Table.Cell>
       </Table.Row>
     );
@@ -541,24 +574,20 @@ export default class Experience extends React.Component {
           {Moment(experience.start).format("Do MMM, YYYY")}
         </Table.Cell>
         <Table.Cell>{Moment(experience.end).format("Do MMM, YYYY")}</Table.Cell>
-        <Table.Cell>
-          <button
+        <Table.Cell textAlign="right">
+          <Button
             type="button"
-            className="ui edit button"
+            icon="pencil"
             onClick={() => this.edit(experience.id)}
-          >
-            {" "}
-            <Icon name="edit" />
-          </button>
-          <button
+          ></Button>
+
+          <Button
             type="button"
-            className="ui delete button"
+            icon="close"
             onClick={() => {
               this.delete(experience.id);
             }}
-          >
-            <Icon name="delete" />
-          </button>
+          ></Button>
         </Table.Cell>
       </Table.Row>
     );
