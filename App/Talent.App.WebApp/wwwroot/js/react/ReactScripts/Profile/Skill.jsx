@@ -1,6 +1,5 @@
 ﻿/* Skill section */
 import React from "react";
-import Cookies from "js-cookie";
 import { Button, Table, Icon } from "semantic-ui-react";
 
 export default class Skill extends React.Component {
@@ -92,13 +91,11 @@ export default class Skill extends React.Component {
       let skillData = this.props.skillData;
       const data = Object.assign({}, this.state.newSkill);
 
-      console.log(addLang);
       data.skills = skillData;
       addLang.id = addLang.id + 1;
 
       data.skills.push(addLang);
 
-      console.log(addLang);
       this.props.updateProfileData(data);
       this.setState({
         showAddSection: false,
