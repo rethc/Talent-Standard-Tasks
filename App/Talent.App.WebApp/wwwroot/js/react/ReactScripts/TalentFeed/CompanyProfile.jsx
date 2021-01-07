@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { Loader, Card, Icon, Image, Button } from "semantic-ui-react";
+import { Loader, Card, Icon, Image, Button, Grid } from "semantic-ui-react";
 
 export default class CompanyProfile extends React.Component {
   constructor(props) {
@@ -8,26 +8,6 @@ export default class CompanyProfile extends React.Component {
 
   render() {
     let location = "No location found";
-    if (this.props.details) {
-      if (
-        this.props.details.companyContact.location.city &&
-        this.props.details.companyContact.location.country
-      )
-        location =
-          this.props.details.companyContact.location.city +
-          "," +
-          this.props.details.companyContact.location.country;
-      else if (
-        !this.props.details.companyContact.location.city &&
-        this.props.details.companyContact.location.country
-      )
-        location = this.props.details.companyContact.location.country;
-      else if (
-        this.props.details.companyContact.location.city &&
-        !this.props.details.companyContact.location.country
-      )
-        location = this.props.details.companyContact.location.city;
-    }
 
     return (
       <Card>
@@ -41,11 +21,18 @@ export default class CompanyProfile extends React.Component {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Icon name="phone" />:
-          {this.props.details ? this.props.details.companyContact.phone : ""}
-          <br />
-          <Icon name="mail" />:
-          {this.props.details ? this.props.details.companyContact.email : ""}
+          <p>
+            <Icon name="phone" />:
+            {this.props.details
+              ? " " + this.props.details.companyContact.phone
+              : ""}
+          </p>
+          <p>
+            <Icon name="mail" />:
+            {this.props.details
+              ? " " + this.props.details.companyContact.email
+              : ""}
+          </p>
         </Card.Content>
       </Card>
     );

@@ -36,6 +36,35 @@ export default class TalentFeed extends React.Component {
 
   componentDidMount() {
     //window.addEventListener("scroll", this.handleScroll);
+    //this.init();
+    this.loadData();
+  }
+
+  loadData() {
+    var cookies = Cookies.get("talentAuthToken");
+    $.ajax({
+      url: "http://localhost:60290/profile/profile/getEmployerProfile",
+      headers: {
+        Authorization: "Bearer " + cookies,
+        "Content-Type": "application/json",
+      },
+      type: "GET",
+      contentType: "application/json",
+      dataType: "json",
+      success: function (res) {
+        let employerData = null;
+        if (res.employer) {
+          employerData = res.employer;
+        }
+        console.log(res);
+        this.setState({
+          companyDetails: employerData,
+        });
+      }.bind(this),
+      error: function (res) {
+        console.log(res.status);
+      },
+    });
     this.init();
   }
 
