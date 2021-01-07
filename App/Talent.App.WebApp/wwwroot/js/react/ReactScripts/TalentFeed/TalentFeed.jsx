@@ -2,7 +2,7 @@
 import ReactDOM from "react-dom";
 import Cookies from "js-cookie";
 import TalentCard from "../TalentFeed/TalentCard.jsx";
-import { Loader } from "semantic-ui-react";
+import { Loader, Card, Icon, Image, Button } from "semantic-ui-react";
 import CompanyProfile from "../TalentFeed/CompanyProfile.jsx";
 import FollowingSuggestion from "../TalentFeed/FollowingSuggestion.jsx";
 import { BodyWrapper, loaderData } from "../Layout/BodyWrapper.jsx";
@@ -35,14 +35,30 @@ export default class TalentFeed extends React.Component {
   }
 
   componentDidMount() {
-    //window.addEventListener('scroll', this.handleScroll);
+    //window.addEventListener("scroll", this.handleScroll);
     this.init();
   }
 
   render() {
     return (
       <BodyWrapper reload={this.init} loaderData={this.state.loaderData}>
-        <div className="ui container">Your code goes here</div>
+        <section className="page-body">
+          <div className="ui container">
+            <div className="ui grid">
+              <div className="row">
+                <div className="four wide column">
+                  <CompanyProfile details={this.state.companyDetails} />
+                </div>
+                <div className="eight wide column">{/*  <TalentCard />*/} </div>
+                <div className="four wide column">
+                  <Card>
+                    <FollowingSuggestion />
+                  </Card>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </BodyWrapper>
     );
   }
