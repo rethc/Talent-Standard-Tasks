@@ -6,6 +6,10 @@ import { Popup, Icon } from "semantic-ui-react";
 export default class TalentCard extends React.Component {
   constructor(props) {
     super(props);
+
+    let loader = loaderData;
+    loader.allowedUsers.push("Employer");
+    loader.allowedUsers.push("Recruiter");
   }
 
   render() {
