@@ -1,7 +1,15 @@
 ﻿import React from "react";
 import ReactPlayer from "react-player";
 import PropTypes from "prop-types";
-import { Popup, Icon, Card, Button, Grid, Segment } from "semantic-ui-react";
+import {
+  Popup,
+  Icon,
+  Card,
+  Button,
+  Grid,
+  Segment,
+  Label,
+} from "semantic-ui-react";
 import { BodyWrapper, loaderData } from "../Layout/BodyWrapper.jsx";
 
 export default class TalentCard extends React.Component {
@@ -29,19 +37,59 @@ export default class TalentCard extends React.Component {
         <Grid columns="equal">
           <Grid.Row>
             <Grid.Column>
-              <h3>Name</h3>
+              <h3>TalentName</h3>
             </Grid.Column>
             <Grid.Column textAlign="right">
-              <Icon name="star" />
+              <Icon name="star" size="large" />
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </React.Fragment>
     );
+
+    const profileButtons = (
+      <React.Fragment>
+        <Grid columns="equal">
+          <Grid.Row>
+            <Grid.Column textAlign="center">
+              <Button inverted>
+                <Icon name="user" color="black" size="large" />
+              </Button>
+            </Grid.Column>
+            <Grid.Column textAlign="center">
+              <Button inverted>
+                <Icon name="file pdf outline" color="black" size="large" />
+              </Button>
+            </Grid.Column>
+            <Grid.Column textAlign="center">
+              <Button inverted>
+                <Icon name="linkedin" color="black" size="large" />
+              </Button>
+            </Grid.Column>
+            <Grid.Column textAlign="center">
+              <Button inverted>
+                <Icon name="github" color="black" size="large" />
+              </Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </React.Fragment>
+    );
+
     return (
       <Card fluid>
         <Card.Content header={header} />
-        <Card.Content description>dfdsf</Card.Content>
+        <div className="player-wrapper">
+          <ReactPlayer
+            className="react-player"
+            url="https://www.youtube.com/watch?v=dpw9EHDh2bM"
+            width="100%"
+          />
+        </div>
+        <Card.Content>{profileButtons}</Card.Content>
+        <Card.Content extra>
+          <Label basic color="blue" content="C#" />
+        </Card.Content>
       </Card>
     );
   }
