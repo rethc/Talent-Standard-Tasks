@@ -34,12 +34,12 @@ export default class PhotoUpload extends Component {
 
   upload() {
     var cookies = Cookies.get("talentAuthToken");
-    const data = new FormData();
+    let data = new FormData();
     data.append("photo", this.imageRef.current.files[0]);
     console.log(data.get("photo"));
 
     $.ajax({
-      url: this.props.savePhotoUrl,
+      url: "http://localhost:60290/profile/profile/updateProfilePhoto",
       headers: {
         Authorization: "Bearer " + cookies,
       },
