@@ -1,5 +1,5 @@
 ﻿import React from "react";
-import { Loader, Card, Icon, Image, Button, Grid } from "semantic-ui-react";
+import { Loader, Card, Icon } from "semantic-ui-react";
 
 export default class CompanyProfile extends React.Component {
   constructor(props) {
