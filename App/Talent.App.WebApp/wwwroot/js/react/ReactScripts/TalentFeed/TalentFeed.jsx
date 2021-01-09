@@ -77,9 +77,17 @@ export default class TalentFeed extends React.Component {
               <div className="row">
                 <div className="four wide column">
                   <CompanyProfile details={this.state.companyDetails} />
+                  {console.log(this.state.feedData)}
                 </div>
                 <div className="eight wide column">
-                  <TalentCard />
+                  {this.state.feedData === [] &&
+                  this.state.feedData !== undefined ? (
+                    <b>
+                      There are no talents found for your recruitment company.
+                    </b>
+                  ) : (
+                    <TalentCard />
+                  )}
                 </div>
                 <div className="four wide column">
                   <Card>

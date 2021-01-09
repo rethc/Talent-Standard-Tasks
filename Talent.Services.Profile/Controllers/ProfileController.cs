@@ -412,10 +412,19 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent, employer, recruiter")]
         public async Task<IActionResult> GetTalentProfile(String id = "")
         {
-            String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
-            var userProfile = await _profileService.GetTalentProfile(talentId);
-          
-            return Json(new { Success = true, data = userProfile });
+
+            try
+            {
+                String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
+                IFormFile file = Request.Form.Files[0];
+                var userProfile = await _profileService.UpdateTalentPhoto(talentId, file);
+
+                return Json(new { Success = true, data = userProfile });
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = false, message = e });
+            }
         }
 
         [HttpPost("updateTalentProfile")]
@@ -439,6 +448,22 @@ namespace Talent.Services.Profile.Controllers
             try
             {
                 var result = (await _profileService.GetTalentSnapshotList(_userAppContext.CurrentUserId, false, feed.Position, feed.Number)).ToList();
+
+                // Dummy talent to fill out the list once we run out of data
+                if(result.Count == 0)
+                {
+                    result.Add(
+                           new Models.TalentSnapshotViewModel {
+                              CurrentEmployment = "Software Developer at Microsoft",
+                              Level = "Junior",
+                              Name = "Dummy User...",
+                              PhotoId = "",
+                              Skills = new List<string> { "C#", ".Net Core", "Javascript", "React.js" },
+                              Summary = "Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.",
+                              Visa = "Citizen"
+                           }
+                        );;
+                 }
 
                 // Dummy talent to fill out the list once we run out of data
                 //if (result.Count == 0)

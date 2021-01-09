@@ -32,7 +32,7 @@ export default class TalentCard extends React.Component {
   componentDidMount() {}
 
   render() {
-    const header = (
+    const cardHeader = (
       <React.Fragment>
         <Grid columns="equal">
           <Grid.Row>
@@ -47,7 +47,7 @@ export default class TalentCard extends React.Component {
       </React.Fragment>
     );
 
-    const profileButtons = (
+    const cardButtons = (
       <React.Fragment>
         <Grid columns="equal">
           <Grid.Row>
@@ -78,7 +78,7 @@ export default class TalentCard extends React.Component {
 
     return (
       <Card fluid>
-        <Card.Content header={header} />
+        <Card.Content header={cardHeader} />
         <div className="player-wrapper">
           <ReactPlayer
             className="react-player"
@@ -86,7 +86,7 @@ export default class TalentCard extends React.Component {
             width="100%"
           />
         </div>
-        <Card.Content>{profileButtons}</Card.Content>
+        <Card.Content>{cardButtons}</Card.Content>
         <Card.Content extra>
           <Label basic color="blue" content="C#" />
         </Card.Content>
