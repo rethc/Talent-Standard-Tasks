@@ -78,7 +78,9 @@ export default class TalentFeed extends React.Component {
                 <div className="four wide column">
                   <CompanyProfile details={this.state.companyDetails} />
                 </div>
-                <div className="eight wide column">{/*  <TalentCard />*/} </div>
+                <div className="eight wide column">
+                  <TalentCard />
+                </div>
                 <div className="four wide column">
                   <Card>
                     <FollowingSuggestion />

@@ -8,5 +8,7 @@ export default class TalentCard extends React.Component {
     super(props);
   }
 
-  render() {}
+  render() {
+    return <h1>hello from talent card</h1>;
+  }
 }
