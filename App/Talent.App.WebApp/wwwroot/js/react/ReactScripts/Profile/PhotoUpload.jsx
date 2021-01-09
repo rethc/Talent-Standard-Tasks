@@ -39,7 +39,7 @@ export default class PhotoUpload extends Component {
     console.log(data.get("photo"));
 
     $.ajax({
-      url: "http://localhost:60290/profile/profile/updateProfilePhoto",
+      url: this.props.savePhotoUrl,
       headers: {
         Authorization: "Bearer " + cookies,
       },
