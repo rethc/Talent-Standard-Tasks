@@ -1,96 +1,190 @@
-﻿import React from "react";
+﻿import React, { Fragment } from "react";
 import ReactPlayer from "react-player";
 import PropTypes from "prop-types";
-import {
-  Popup,
-  Icon,
-  Card,
-  Button,
-  Grid,
-  Segment,
-  Label,
-} from "semantic-ui-react";
-import { BodyWrapper, loaderData } from "../Layout/BodyWrapper.jsx";
+import { Embed, Label, Card, Grid, Icon, Image, Item } from "semantic-ui-react";
+
+const availableItems = [
+  { key: "0", name: "video", icon: "video" },
+  { key: "1", name: "profile", icon: "user" },
+  { key: "2", name: "cv", icon: "file pdf outline" },
+  { key: "3", name: "linkedin", icon: "linkedin" },
+  { key: "4", name: "github", icon: "github play" },
+];
 
 export default class TalentCard extends React.Component {
   constructor(props) {
     super(props);
 
-    let loader = loaderData;
-    loader.allowedUsers.push("Employer");
-    loader.allowedUsers.push("Recruiter");
+    this.state = {
+      activeItem: "video",
+    };
 
-    this.init = this.init.bind(this);
+    this.renderActiveContent = this.renderActiveContent.bind(this);
+    this.renderVideo = this.renderVideo.bind(this);
+    this.renderProfile = this.renderProfile.bind(this);
+    this.renderCV = this.renderCV.bind(this);
+    this.renderSocialMediaAccount = this.renderSocialMediaAccount.bind(this);
+    this.renderMenu = this.renderMenu.bind(this);
+    this.handleItemClick = this.handleItemClick.bind(this);
+    this.renderSkills = this.renderSkills.bind(this);
   }
-
-  init() {
-    let loaderData = TalentUtil.deepCopy(this.state.loaderData);
-    loaderData.isLoading = false;
-    this.setState({ loaderData });
-  }
-
-  componentDidMount() {}
 
   render() {
-    const cardHeader = (
-      <React.Fragment>
-        <Grid columns="equal">
-          <Grid.Row>
-            <Grid.Column>
-              <h3>TalentName</h3>
-            </Grid.Column>
-            <Grid.Column textAlign="right">
-              <Icon name="star" size="large" />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </React.Fragment>
+    return (
+      <Fragment>
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>
+              <Grid columns="equal">
+                <Grid.Row>
+                  <Grid.Column>{this.props.talentData.name}</Grid.Column>
+                  <Grid.Column textAlign="right">
+                    <Icon name="star" />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Card.Header>
+          </Card.Content>
+          {this.renderActiveContent()}
+          {this.renderMenu()}
+          {this.renderSkills()}
+        </Card>
+      </Fragment>
     );
+  }
 
-    const cardButtons = (
-      <React.Fragment>
-        <Grid columns="equal">
-          <Grid.Row>
-            <Grid.Column textAlign="center">
-              <Button inverted>
-                <Icon name="user" color="black" size="large" />
-              </Button>
-            </Grid.Column>
-            <Grid.Column textAlign="center">
-              <Button inverted>
-                <Icon name="file pdf outline" color="black" size="large" />
-              </Button>
-            </Grid.Column>
-            <Grid.Column textAlign="center">
-              <Button inverted>
-                <Icon name="linkedin" color="black" size="large" />
-              </Button>
-            </Grid.Column>
-            <Grid.Column textAlign="center">
-              <Button inverted>
-                <Icon name="github" color="black" size="large" />
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </React.Fragment>
+  renderActiveContent() {
+    let result = null;
+
+    switch (this.state.activeItem) {
+      case "video":
+        result = this.renderVideo();
+        break;
+      case "profile":
+        result = this.renderProfile();
+        break;
+      case "cv":
+        result = this.renderCV();
+        break;
+      case "linkedin":
+        result = this.renderSocialMediaAccount();
+      case "github":
+        result = this.renderSocialMediaAccount();
+    }
+
+    return result;
+  }
+
+  renderVideo() {
+    return (
+      <ReactPlayer
+        className="react-player"
+        url="https://www.youtube.com/watch?v=dpw9EHDh2bM"
+        width="100%"
+      />
     );
+  }
+
+  renderProfile() {
+    const src = this.props.talentData.photoId
+      ? this.props.talentData.photoId
+      : "https://react.semantic-ui.com/images/avatar/large/matthew.png";
 
     return (
-      <Card fluid>
-        <Card.Content header={cardHeader} />
-        <div className="player-wrapper">
-          <ReactPlayer
-            className="react-player"
-            url="https://www.youtube.com/watch?v=dpw9EHDh2bM"
-            width="100%"
-          />
+      <Grid columns="equal">
+        <Grid.Row>
+          <Grid.Column>
+            <Image src={src} />
+          </Grid.Column>
+          <Grid.Column>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  <h4>Talent Snapshot</h4>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <b>CURRENT EMPLOYER</b>
+                  <br />
+                  {this.props.talentData.currentEmployment}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <b>VISA STATUS</b>
+                  <br />
+                  {this.props.talentData.visa}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <b>POSITION</b>
+                  <br />
+                  {this.props.talentData.currentEmployment}
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    );
+  }
+
+  renderCV() {
+    return <Card.Content>No CV for this talent.</Card.Content>;
+  }
+
+  renderSocialMediaAccount() {
+    return <Card.Content>No Linked Accounts for this talent.</Card.Content>;
+  }
+
+  renderMenu() {
+    const inactiveItems = availableItems.filter(
+      (item) => item.name !== this.state.activeItem
+    );
+    const menuItems = inactiveItems.map((item) => (
+      <MenuItem
+        key={item.key}
+        name={item.name}
+        icon={item.icon}
+        handleClick={this.handleItemClick}
+      />
+    ));
+
+    return (
+      <Card.Content>
+        <div className="ui fluid four item icon secondary menu">
+          {menuItems}
         </div>
-        <Card.Content>{cardButtons}</Card.Content>
-        <Card.Content extra>
-          <Label basic color="blue" content="C#" />
-        </Card.Content>
-      </Card>
+      </Card.Content>
+    );
+  }
+
+  handleItemClick(event, name) {
+    this.setState({ activeItem: name });
+  }
+
+  renderSkills() {
+    const skillLabels = this.props.talentData.skills.map((skill, index) => (
+      <Label key={index} basic color="blue" content={skill} />
+    ));
+
+    //hardcoded
+    return (
+      <Card.Content extra>
+        <Label basic color="blue" content="C#" />
+      </Card.Content>
     );
   }
 }
+
+const MenuItem = (props) => (
+  <a
+    className="item"
+    name={props.name}
+    onClick={(e) => props.handleClick(e, props.name)}
+  >
+    <i aria-hidden="true" className={props.icon + " large icon"}></i>
+  </a>
+);

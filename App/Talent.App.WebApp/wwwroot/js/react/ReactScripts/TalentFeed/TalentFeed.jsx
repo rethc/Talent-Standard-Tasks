@@ -37,10 +37,12 @@ export default class TalentFeed extends React.Component {
   componentDidMount() {
     //window.addEventListener("scroll", this.handleScroll);
     //this.init();
-    this.loadData();
+    this.loadEmployerData();
+    this.loadTalentData();
+    this.init();
   }
 
-  loadData() {
+  loadEmployerData() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
       url: "http://localhost:60290/profile/profile/getEmployerProfile",
@@ -65,9 +67,56 @@ export default class TalentFeed extends React.Component {
         console.log(res.status);
       },
     });
-    this.init();
   }
 
+  loadTalentData() {
+    var cookies = Cookies.get("talentAuthToken");
+    $.ajax({
+      url: "http://localhost:60290/profile/profile/getTalent",
+      headers: {
+        Authorization: "Bearer " + cookies,
+        "Content-Type": "application/json",
+      },
+      type: "GET",
+      data: {
+        position: this.state.loadPosition,
+        number: this.state.loadNumber,
+      },
+      contentType: "application/json",
+      dataType: "json",
+      success: function (res) {
+        let newFeedData = this.state.feedData;
+        let newLoadPosition = this.state.loadPosition;
+
+        if (res.data) {
+          newFeedData = newFeedData.concat(res.data);
+          newLoadPosition += this.state.loadNumber;
+          console.log(newFeedData);
+          console.log(newLoadPosition);
+        }
+        console.log(res);
+        this.setState({
+          feedData: newFeedData,
+          loadPosition: newLoadPosition,
+        });
+      }.bind(this),
+      error: function (res) {
+        console.log(res.status);
+      },
+    });
+  }
+
+  renderTalents() {
+    const talentList = this.state.feedData.map((talent) => (
+      <TalentCard key={talent.id} id={talent.id} talentData={talent} />
+    ));
+
+    return talentList && talentList.length > 0 ? (
+      talentList
+    ) : (
+      <p>There are no talents found for your recruitment company</p>
+    );
+  }
   render() {
     return (
       <BodyWrapper reload={this.init} loaderData={this.state.loaderData}>
@@ -77,18 +126,8 @@ export default class TalentFeed extends React.Component {
               <div className="row">
                 <div className="four wide column">
                   <CompanyProfile details={this.state.companyDetails} />
-                  {console.log(this.state.feedData)}
                 </div>
-                <div className="eight wide column">
-                  {this.state.feedData === [] &&
-                  this.state.feedData !== undefined ? (
-                    <b>
-                      There are no talents found for your recruitment company.
-                    </b>
-                  ) : (
-                    <TalentCard />
-                  )}
-                </div>
+                <div className="eight wide column">{this.renderTalents()}</div>
                 <div className="four wide column">
                   <Card>
                     <FollowingSuggestion />
