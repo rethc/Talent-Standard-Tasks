@@ -391,7 +391,7 @@ export default class Experience extends React.Component {
               selected={
                 this.state.addExperience.start
                   ? this.state.addExperience.start
-                  : Moment()
+                  : ""
               }
               onChange={this.handleChangeStartDate}
             />
@@ -405,9 +405,7 @@ export default class Experience extends React.Component {
               disabled={!this.state.isEndEnabled}
               name="end"
               selected={
-                this.state.addExperience.end
-                  ? this.state.addExperience.end
-                  : Moment()
+                this.state.addExperience.end ? this.state.addExperience.end : ""
               }
               onChange={this.handleChangeEndDate}
             />

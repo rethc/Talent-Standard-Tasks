@@ -50,7 +50,7 @@ export default class TalentStatus extends React.Component {
           selected={
             this.props.status.availableDate
               ? Moment(this.props.status.availableDate)
-              : Moment()
+              : Moment().startOf("day")
           }
         />
       </div>
@@ -108,7 +108,7 @@ export default class TalentStatus extends React.Component {
             </Form.Field>
           </div>
           <div className="sixteen wide column">
-            {this.props.status.status === "Will be available on later date"
+            {this.props.status === "Will be available on later date"
               ? this.renderDate()
               : ""}
           </div>

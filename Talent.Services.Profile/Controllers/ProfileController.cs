@@ -411,7 +411,7 @@ namespace Talent.Services.Profile.Controllers
             //Your code here;
             throw new NotImplementedException();
         }
-        
+
         #endregion
 
         #region TalentFeed
@@ -420,20 +420,13 @@ namespace Talent.Services.Profile.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent, employer, recruiter")]
         public async Task<IActionResult> GetTalentProfile(String id = "")
         {
+            String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
+            var userProfile = await _profileService.GetTalentProfile(talentId);
+            Console.WriteLine("Valid");
 
-            try
-            {
-                String talentId = String.IsNullOrWhiteSpace(id) ? _userAppContext.CurrentUserId : id;
-                IFormFile file = Request.Form.Files[0];
-                var userProfile = await _profileService.UpdateTalentPhoto(talentId, file);
-
-                return Json(new { Success = true, data = userProfile });
-            }
-            catch (Exception e)
-            {
-                return Json(new { Success = false, message = e });
-            }
+            return Json(new { Success = true, data = userProfile });
         }
+
 
         [HttpPost("updateTalentProfile")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]

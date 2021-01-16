@@ -39,7 +39,8 @@ export default class PhotoUpload extends Component {
     console.log(data.get("photo"));
 
     $.ajax({
-      url: this.props.savePhotoUrl,
+      url:
+        "https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto",
       headers: {
         Authorization: "Bearer " + cookies,
       },
