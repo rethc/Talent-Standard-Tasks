@@ -22,7 +22,7 @@ export default class EmailConfirmation extends React.Component {
     //verifyEmail
     $.ajax({
       url:
-        "http://localhost:60998/authentication/authentication/" +
+        "https://cidentityservices.azurewebsites.net/authentication/authentication/" +
         this.state.pagetype,
       type: "GET",
       contentType: "application/json",

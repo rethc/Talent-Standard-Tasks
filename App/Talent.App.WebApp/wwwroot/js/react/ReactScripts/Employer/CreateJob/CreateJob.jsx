@@ -70,8 +70,9 @@ export default class CreateJob extends React.Component {
     if (param != "" || copyJobParam != "") {
       var link =
         param != ""
-          ? "http://localhost:51689/listing/listing/GetJobByToEdit?id=" + param
-          : "http://localhost:51689/listing/listing/GetJobForCopy?id=" +
+          ? "https://ctalentservices.azurewebsites.net/listing/listing/GetJobByToEdit?id=" +
+            param
+          : "https://ctalentservices.azurewebsites.net/listing/listing/GetJobForCopy?id=" +
             copyJobParam;
       var cookies = Cookies.get("talentAuthToken");
       $.ajax({
@@ -111,7 +112,8 @@ export default class CreateJob extends React.Component {
     console.log("date:", jobData.jobDetails.startDate);
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:51689/listing/listing/createUpdateJob",
+      url:
+        "https://ctalentservices.azurewebsites.net/listing/listing/createUpdateJob",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",

@@ -22,7 +22,7 @@ class ClientProfileModal extends React.Component {
       var cookies = Cookies.get("talentAuthToken");
       $.ajax({
         url:
-          "http://localhost:60290/profile/profile/getEmployerProfile?id=" +
+          "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfile?id=" +
           id +
           "&role=" +
           "employer",
@@ -50,7 +50,8 @@ class ClientProfileModal extends React.Component {
   saveData() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/saveClientProfile",
+      url:
+        "https://cprofileservices.azurewebsites.net/profile/profile/saveClientProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",

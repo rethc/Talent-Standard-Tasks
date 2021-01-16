@@ -46,7 +46,7 @@ export class TalentVideoSection extends Component {
         videoName={this.state.profileData.videoName}
         updateProfileData={this.updateForComponentId}
         saveVideoUrl={
-          "http://localhost:60290/profile/profile/updateTalentVideo"
+          "https://cprofileservices.azurewebsites.net/profile/profile/updateTalentVideo"
         }
       />
     ));
