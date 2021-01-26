@@ -166,6 +166,13 @@ export default class AccountProfile extends React.Component {
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
+
+                    <SelfIntroduction
+                      summary={this.state.profileData.summary}
+                      description={this.state.profileData.description}
+                      updateProfileData={this.updateAndSaveData}
+                      updateWithoutSave={this.updateWithoutSave}
+                    />
                     <FormItemWrapper
                       title="User Details"
                       tooltip="Enter your contact details"
@@ -308,12 +315,6 @@ export default class AccountProfile extends React.Component {
                       />
                     </FormItemWrapper>
                     **/}
-                    <SelfIntroduction
-                      summary={this.state.profileData.summary}
-                      description={this.state.profileData.description}
-                      updateProfileData={this.updateAndSaveData}
-                      updateWithoutSave={this.updateWithoutSave}
-                    />
                   </div>
                 </form>
               </div>

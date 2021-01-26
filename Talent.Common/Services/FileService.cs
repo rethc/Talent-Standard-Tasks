@@ -33,8 +33,24 @@ namespace Talent.Common.Services
 
         public async Task<string> SaveFile(IFormFile file, FileType type)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            // unique file name
+            var myUniqueFileName = "";
+            string pathWeb = "";
+            pathWeb = _environment.WebRootPath;
+
+            if (file != null && type == FileType.ProfilePhoto && pathWeb != "")
+            {
+                string pathValue = pathWeb + _tempFolder;
+                myUniqueFileName = $@"{DateTime.Now.Ticks}_" + file.FileName;
+                var path = pathValue + myUniqueFileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                Console.WriteLine(path);
+            }
+
+            return myUniqueFileName;
         }
 
         public async Task<bool> DeleteFile(string id, FileType type)

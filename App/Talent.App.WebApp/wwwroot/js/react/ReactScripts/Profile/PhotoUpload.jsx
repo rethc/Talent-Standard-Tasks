@@ -28,6 +28,7 @@ export default class PhotoUpload extends Component {
 
       this.setState({ uploaded: false });
 
+      //AccountProfile props savePhotoUrl="https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto"
       this.props.updateProfileData({ profilePhotoUrl: imageURL });
     }
   }
