@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Talent.Common.Aws;
 using Talent.Common.Contracts;
+using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
+
 
 namespace Talent.Common.Services
 {
@@ -16,6 +20,8 @@ namespace Talent.Common.Services
         private readonly IHostingEnvironment _environment;
         private readonly string _tempFolder;
         private IAwsService _awsService;
+        private ImgurClient _imgurClient;
+        private readonly string _clientID = "2d11ba0608dc05d";
 
         public FileService(IHostingEnvironment environment, 
             IAwsService awsService)
@@ -27,30 +33,31 @@ namespace Talent.Common.Services
 
         public async Task<string> GetFileURL(string id, FileType type)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            string _fileName = "";
+            if (id != null && type == FileType.ProfilePhoto)
+            {
+                _imgurClient = new ImgurClient(_clientID);
+                var _endpoint = new ImageEndpoint(_imgurClient);
+                return _fileName;
+            }
+            return _fileName;
         }
 
         public async Task<string> SaveFile(IFormFile file, FileType type)
         {
-            // unique file name
-            var myUniqueFileName = "";
-            string pathWeb = "";
-            pathWeb = _environment.WebRootPath;
-
-            if (file != null && type == FileType.ProfilePhoto && pathWeb != "")
+            string _fileName = "";
+            if (file != null && type == FileType.ProfilePhoto)
             {
-                string pathValue = pathWeb + _tempFolder;
-                myUniqueFileName = $@"{DateTime.Now.Ticks}_" + file.FileName;
-                var path = pathValue + myUniqueFileName;
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
-                Console.WriteLine(path);
-            }
+                _fileName = file.FileName + "-" + DateTime.UtcNow;
+                Stream _stream = file.OpenReadStream();
 
-            return myUniqueFileName;
+                _imgurClient = new ImgurClient(_clientID);
+                var _endpoint = new ImageEndpoint(_imgurClient);
+                IImage _image = await _endpoint.UploadImageStreamAsync(_stream);
+                _fileName = _image.Link;
+                return _fileName;
+            }
+            return _fileName;
         }
 
         public async Task<bool> DeleteFile(string id, FileType type)

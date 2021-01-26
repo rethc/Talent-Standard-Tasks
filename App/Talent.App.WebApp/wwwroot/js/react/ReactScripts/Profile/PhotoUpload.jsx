@@ -9,83 +9,96 @@ export default class PhotoUpload extends Component {
     this.state = {
       uploaded: true,
       uploading: false,
+      file: "",
     };
 
     this.imageRef = React.createRef();
 
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
     this.imageUploadHandler = this.imageUploadHandler.bind(this);
     this.upload = this.upload.bind(this);
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.pre;
     this.imageRef.current.click();
   }
 
   imageUploadHandler() {
-    if (this.imageRef.current.files.length > 0) {
+    this.setState({
+      uploaded: false,
+      file: URL.createObjectURL(this.imageRef.current.files[0]),
+    });
+
+    /*if (this.imageRef.current.files.length > 0) {
       const imageURL = URL.createObjectURL(this.imageRef.current.files[0]);
 
       this.setState({ uploaded: false });
 
       //AccountProfile props savePhotoUrl="https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto"
       this.props.updateProfileData({ profilePhotoUrl: imageURL });
-    }
+    }*/
   }
 
   upload() {
-    var cookies = Cookies.get("talentAuthToken");
-    let data = new FormData();
-    data.append("photo", this.imageRef.current.files[0]);
-    console.log(data.get("photo"));
+    if (this.imageRef.current.files.length != 0) {
+      var cookies = Cookies.get("talentAuthToken");
+      let data = new FormData();
+      data.append("photo", this.imageRef.current.files[0]);
+      console.log(data.get("photo"));
+      const localURL =
+        "http://localhost:60290/profile/profile/updateProfilePhoto";
+      const azureURL =
+        "https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto";
 
-    $.ajax({
-      url: this.props.savePhotoUrl,
-      headers: {
-        Authorization: "Bearer " + cookies,
-      },
-      type: "POST",
-      data: data,
-      processData: false,
-      contentType: false,
-      success: function (res) {
-        if (res.success === true) {
-          this.setState({
-            uploaded: true,
-            uploading: false,
-          });
+      $.ajax({
+        url: localURL,
+        headers: {
+          Authorization: "Bearer " + cookies,
+        },
+        type: "POST",
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function (res) {
+          if (res.success === true) {
+            this.setState({
+              uploaded: true,
+              uploading: false,
+            });
 
-          this.props.loadData();
+            this.props.loadData();
 
-          TalentUtil.notification.show(
-            "Updated profile photo successfully",
-            "success",
-            null,
-            null
-          );
-        } else {
-          TalentUtil.notification.show(
-            "Error uploading profile photo",
-            "error",
-            null,
-            null
-          );
+            TalentUtil.notification.show(
+              "Updated profile photo successfully",
+              "success",
+              null,
+              null
+            );
+          } else {
+            TalentUtil.notification.show(
+              "Error uploading profile photo",
+              "error",
+              null,
+              null
+            );
 
-          this.setState({
-            uploading: false,
-          });
-        }
-      }.bind(this),
-      error: function (res, a, b) {
-        console.log(res);
-        console.log(a);
-        console.log(b);
-      },
-    });
+            this.setState({
+              uploading: false,
+            });
+          }
+        }.bind(this),
+        error: function (res, a, b) {
+          console.log(res);
+          console.log(a);
+          console.log(b);
+        },
+      });
 
-    this.setState({
-      uploading: true,
-    });
+      this.setState({
+        uploading: true,
+      });
+    }
   }
 
   render() {

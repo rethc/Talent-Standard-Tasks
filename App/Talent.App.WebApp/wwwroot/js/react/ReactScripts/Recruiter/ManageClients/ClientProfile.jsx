@@ -18,14 +18,14 @@ class ClientProfileModal extends React.Component {
   }
 
   loadData(id) {
+    const azureURL =
+      "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfile?id=";
+    const localURL =
+      "http://localhost:60290/profile/profile/getEmployerProfile?id=";
     if (id != undefined) {
       var cookies = Cookies.get("talentAuthToken");
       $.ajax({
-        url:
-          "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfile?id=" +
-          id +
-          "&role=" +
-          "employer",
+        url: localURL + id + "&role=" + "employer",
         headers: {
           Authorization: "Bearer " + cookies,
           "Content-Type": "application/json",
@@ -49,9 +49,12 @@ class ClientProfileModal extends React.Component {
 
   saveData() {
     var cookies = Cookies.get("talentAuthToken");
+    const azureURL =
+      "https://cprofileservices.azurewebsites.net/profile/profile/saveClientProfile";
+
+    const localURL = "http://localhost:60290/profile/profile/saveClientProfile";
     $.ajax({
-      url:
-        "https://cprofileservices.azurewebsites.net/profile/profile/saveClientProfile",
+      url: localURL,
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",

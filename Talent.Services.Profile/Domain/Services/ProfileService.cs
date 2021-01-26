@@ -376,18 +376,19 @@ namespace Talent.Services.Profile.Domain.Services
                 return false;
             }
             var newFileName = await _fileService.SaveFile(file, FileType.ProfilePhoto);
+
             if (!string.IsNullOrWhiteSpace(newFileName))
             {
-                var oldFileName = profile.ProfilePhoto;
+                //var oldFileName = profile.ProfilePhoto;
 
-                if (!string.IsNullOrWhiteSpace(oldFileName))
-                {
-                   await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
-                }
+                //if (!string.IsNullOrWhiteSpace(oldFileName))
+                //{
+                  // await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
+               // }
 
                 profile.ProfilePhoto = newFileName;
                 profile.ProfilePhotoUrl = newFileName;
-                profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
+               // profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
 
                 await _userRepository.Update(profile);
                 return true;

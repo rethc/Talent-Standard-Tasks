@@ -231,18 +231,26 @@ namespace Talent.Services.Profile.Controllers
 
         [HttpGet("getProfileImage")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public ActionResult getProfileImage(string Id)
+        public async Task<ActionResult> getProfileImage(string id)
         {
-            var profileUrl = _documentService.GetFileURL(Id, FileType.ProfilePhoto);
+            //var profileUrl = _documentService.GetFileURL(Id, FileType.ProfilePhoto);
             //Please do logic for no image available - maybe placeholder would be fine
+            var profile = await _profileService.GetTalentProfile(id);
+            var profileUrl = profile.ProfilePhotoUrl;
+
+            if (profileUrl == null)
+            {
+                profileUrl = "http://loremflickr.com/100/100/image";
+            }
+
             return Json(new { profilePath = profileUrl });
         }
 
         [HttpPost("updateProfilePhoto")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "talent")]
-        public async Task<ActionResult> UpdateProfilePhoto()
+        public async Task<ActionResult> UpdateProfilePhoto([FromForm] IFormFile file)
         {
-            IFormFile photo = Request.Form.Files.GetFile("photo");
+            /*IFormFile photo = Request.Form.Files.GetFile("photo");
             if (photo.ContentType.StartsWith("image/"))
             {
                 if (await _profileService.UpdateTalentPhoto(_userAppContext.CurrentUserId, photo))
@@ -251,7 +259,10 @@ namespace Talent.Services.Profile.Controllers
                 }
             }
 
-            return Json(new { success = false });
+            return Json(new { success = false });*/
+
+            bool result = await _profileService.UpdateTalentPhoto(_userAppContext.CurrentUserId, file);
+            return Json(new { success = result });
         }
 
         [HttpPost("updateTalentCV")]
