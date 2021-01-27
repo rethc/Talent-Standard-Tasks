@@ -68,13 +68,13 @@ export default class PhotoUpload extends Component {
   }
 
   renderImage() {
-    return <Image src={this.props.imageId} size="medium" circular />;
+    return <Image src={this.props.imageId} size="small" circular />;
   }
 
   renderNoImage() {
     return (
       <Image>
-        <Icon name="camera retro" size="medium" circular />
+        <Icon name="camera retro" size="small" circular />
       </Image>
     );
   }
