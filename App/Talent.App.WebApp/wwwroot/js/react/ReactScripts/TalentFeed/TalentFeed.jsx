@@ -46,7 +46,7 @@ export default class TalentFeed extends React.Component {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
       url:
-        "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfile",
+        "https://cprofileservices2.azurewebsites.net/profile/profile/getEmployerProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export default class TalentFeed extends React.Component {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
       url:
-        "https://cprofileservices.azurewebsites.net/profile/profile/getTalent",
+        "https://cprofileservices2.azurewebsites.net/profile/profile/getTalent",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",

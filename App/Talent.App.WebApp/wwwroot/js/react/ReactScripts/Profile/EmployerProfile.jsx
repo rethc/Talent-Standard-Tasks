@@ -55,11 +55,11 @@ export default class EmployeeProfile extends React.Component {
   loadData() {
     var cookies = Cookies.get("talentAuthToken");
     const azureURL =
-      "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfile";
+      "https://cprofileservices2.azurewebsites.net/profile/profile/getEmployerProfile";
     const localURL =
       "http://localhost:60290/profile/profile/getEmployerProfile";
     $.ajax({
-      url: localURL,
+      url: azureURL,
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -172,7 +172,7 @@ export default class EmployeeProfile extends React.Component {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
       url:
-        "https://cprofileservices.azurewebsites.net/profile/profile/saveEmployerProfile",
+        "https://cprofileservices2.azurewebsites.net/profile/profile/saveEmployerProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",

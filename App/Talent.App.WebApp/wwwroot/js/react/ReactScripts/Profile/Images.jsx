@@ -33,15 +33,15 @@ export class Images extends React.Component {
     const localUrlEmployer =
       "http://localhost:60290/profile/profile/getEmployerProfileImage/?id=";
     const azureUrlEmployer =
-      "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfileImage/?id=";
+      "https://cprofileservices2.azurewebsites.net/profile/profile/getEmployerProfileImage/?id=";
 
     const localUrlImages =
       "http://localhost:60290/profile/profile/getEmployerProfileImages/?Id=";
     const azureUrlImages =
-      "https://cprofileservices.azurewebsites.net/profile/profile/getEmployerProfileImages/?Id=";
+      "https://cprofileservices2.azurewebsites.net/profile/profile/getEmployerProfileImages/?Id=";
 
     $.ajax({
-      url: localUrlEmployer + Id,
+      url: azureUrlEmployer + Id,
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export class Images extends React.Component {
 
         if (res.employerProfile.length > 0) {
           for (var i = 0; i < res.employerProfile.length; i++) {
-            imageSrcArr.push(localUrlImages + res.employerProfile[i].fileName);
+            imageSrcArr.push(azureUrlImages + res.employerProfile[i].fileName);
             imageIdArr.push(res.employerProfile[i].id);
             selectedFileArr.push("");
           }
@@ -166,7 +166,7 @@ export class Images extends React.Component {
 
     $.ajax({
       url:
-        "https://cprofileservices.azurewebsites.net/profile/profile/addEmployerProfileImages",
+        "https://cprofileservices2.azurewebsites.net/profile/profile/addEmployerProfileImages",
       headers: {
         Authorization: "Bearer " + cookies,
       },

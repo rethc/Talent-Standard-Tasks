@@ -87,10 +87,10 @@ export default class PhotoUpload extends Component {
     const localURL =
       "http://localhost:60290/profile/profile/updateProfilePhoto";
     const azureURL =
-      "https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto";
+      "https://cprofileservices2.azurewebsites.net/profile/profile/updateProfilePhoto";
 
     $.ajax({
-      url: localURL,
+      url: azureURL,
       headers: {
         Authorization: "Bearer " + cookies,
       },

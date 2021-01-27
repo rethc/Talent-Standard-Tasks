@@ -61,9 +61,9 @@ export default class AuthenticatingBanner extends React.Component {
     const localURL =
       "http://localhost:60290/profile/profile/isUserAuthenticated";
     const azureURL =
-      "https://cprofileservices.azurewebsites.net/profile/profile/isUserAuthenticated";
+      "https://cprofileservices2.azurewebsites.net/profile/profile/isUserAuthenticated";
     $.ajax({
-      url: localURL,
+      url: azureURL,
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
