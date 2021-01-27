@@ -287,7 +287,7 @@ export default class AccountProfile extends React.Component {
                         imageId={this.state.profileData.profilePhotoUrl}
                         updateProfileData={this.updateWithoutSave}
                         loadData={this.loadData}
-                        savePhotoUrl="https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto"
+                        savePhotoUrl="http://localhost:60290/profile/profile/updateProfilePhoto"
                       />
                     </FormItemWrapper>
                     {/**
