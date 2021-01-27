@@ -14,30 +14,24 @@ export default class PhotoUpload extends Component {
 
     this.imageRef = React.createRef();
 
-    //this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.imageUploadHandler = this.imageUploadHandler.bind(this);
     this.upload = this.upload.bind(this);
   }
 
-  handleClick(e) {
-    e.pre;
+  handleClick() {
     this.imageRef.current.click();
   }
 
   imageUploadHandler() {
-    this.setState({
-      uploaded: false,
-      file: URL.createObjectURL(this.imageRef.current.files[0]),
-    });
-
-    /*if (this.imageRef.current.files.length > 0) {
+    if (this.imageRef.current.files.length > 0) {
       const imageURL = URL.createObjectURL(this.imageRef.current.files[0]);
 
       this.setState({ uploaded: false });
 
       //AccountProfile props savePhotoUrl="https://cprofileservices.azurewebsites.net/profile/profile/updateProfilePhoto"
-      this.props.updateProfileData({ profilePhotoUrl: imageURL });
-    }*/
+      //this.props.updateProfileData({ profilePhotoUrl: imageURL });
+    }
   }
 
   upload() {
