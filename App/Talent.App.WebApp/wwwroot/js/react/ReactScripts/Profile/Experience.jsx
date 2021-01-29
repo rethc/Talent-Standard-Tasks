@@ -358,7 +358,7 @@ export default class Experience extends React.Component {
                   : ""
               }
               placeholder="Company"
-              maxLength={20}
+              maxLength={50}
               onChange={this.handleChange}
             />
           </div>
@@ -375,7 +375,7 @@ export default class Experience extends React.Component {
                   : ""
               }
               placeholder="Position"
-              maxLength={20}
+              maxLength={50}
               onChange={this.handleChange}
             />
           </div>
@@ -425,7 +425,7 @@ export default class Experience extends React.Component {
                   : ""
               }
               placeholder="Responsibilities"
-              maxLength={20}
+              maxLength={50}
               onChange={this.handleChange}
             />
           </div>
@@ -469,7 +469,7 @@ export default class Experience extends React.Component {
                       : experience.company
                   }
                   placeholder="Company"
-                  maxLength={20}
+                  maxLength={50}
                   onChange={this.handleUpdate}
                 />
               </Grid.Column>
@@ -486,7 +486,7 @@ export default class Experience extends React.Component {
                       : experience.position
                   }
                   placeholder="Position"
-                  maxLength={20}
+                  maxLength={50}
                   onChange={this.handleUpdate}
                 />
               </Grid.Column>
@@ -529,7 +529,7 @@ export default class Experience extends React.Component {
                       : experience.responsibilities
                   }
                   placeholder="Responsibilities"
-                  maxLength={20}
+                  maxLength={50}
                   onChange={this.handleUpdate}
                 />
               </Grid.Column>
