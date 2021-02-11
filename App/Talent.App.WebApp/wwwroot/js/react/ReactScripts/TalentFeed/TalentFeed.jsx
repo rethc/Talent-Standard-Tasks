@@ -16,7 +16,7 @@ export default class TalentFeed extends React.Component {
     loader.allowedUsers.push("Recruiter");
 
     this.state = {
-      loadNumber: 200,
+      loadNumber: 5,
       loadPosition: 0,
       feedData: [],
       watchlist: [],

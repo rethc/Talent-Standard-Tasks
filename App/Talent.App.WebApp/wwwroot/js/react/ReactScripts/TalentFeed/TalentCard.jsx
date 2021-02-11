@@ -23,7 +23,8 @@ export default class TalentCard extends React.Component {
     this.renderVideo = this.renderVideo.bind(this);
     this.renderProfile = this.renderProfile.bind(this);
     this.renderCV = this.renderCV.bind(this);
-    this.renderSocialMediaAccount = this.renderSocialMediaAccount.bind(this);
+    this.renderGitHub = this.renderGitHub.bind(this);
+    this.renderLinkedIn = this.renderLinkedIn.bind(this);
     this.renderMenu = this.renderMenu.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
     this.renderSkills = this.renderSkills.bind(this);
@@ -67,9 +68,9 @@ export default class TalentCard extends React.Component {
         result = this.renderCV();
         break;
       case "linkedin":
-        result = this.renderSocialMediaAccount();
+        result = this.renderLinkedIn();
       case "github":
-        result = this.renderSocialMediaAccount();
+        result = this.renderGitHub();
     }
 
     return result;
@@ -132,11 +133,36 @@ export default class TalentCard extends React.Component {
   }
 
   renderCV() {
-    return <Card.Content>No CV for this talent.</Card.Content>;
+    if (
+      this.props.talentData.cvUrl === null ||
+      this.props.talentData.cvUrl === ""
+    ) {
+      return <Card.Content>No CV for this talent.</Card.Content>;
+    } else {
+      window.location.href = this.props.talentData.cvUrl;
+    }
   }
 
-  renderSocialMediaAccount() {
-    return <Card.Content>No Linked Accounts for this talent.</Card.Content>;
+  renderLinkedIn() {
+    if (
+      this.props.talentData.linkedAccounts.linkedIn === null ||
+      this.props.talentData.linkedAccounts.linkedIn === ""
+    ) {
+      return <Card.Content>No LinkedIn account for this talent.</Card.Content>;
+    } else {
+      window.location.href = this.props.talentData.linkedAccounts.linkedIn;
+    }
+  }
+
+  renderGitHub() {
+    if (
+      this.props.talentData.linkedAccounts.github === null ||
+      this.props.talentData.linkedAccounts.github === ""
+    ) {
+      return <Card.Content>No GitHub account for this talent.</Card.Content>;
+    } else {
+      window.location.href = this.props.talentData.linkedAccounts.github;
+    }
   }
 
   renderMenu() {
