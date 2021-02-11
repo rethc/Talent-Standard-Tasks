@@ -166,7 +166,18 @@ export default class TalentCard extends React.Component {
   }
 
   renderSkills() {
-    const skillLabels = this.props.talentData.skills.map((skill, index) => (
+    const { skills } = this.props.talentData;
+    const content = skills.map((skill, index) => (
+      <Label key={index} basic color="blue">
+        {skill}
+      </Label>
+    ));
+
+    return <Card.Content extra>{content}</Card.Content>;
+  }
+}
+
+/*const skillLabels = this.props.talentData.skills.map((skill, index) => (
       <Label key={index} basic color="blue" content={skill} />
     ));
 
@@ -176,8 +187,7 @@ export default class TalentCard extends React.Component {
         <Label basic color="blue" content="C#" />
       </Card.Content>
     );
-  }
-}
+  }*/
 
 const MenuItem = (props) => (
   <a
