@@ -502,7 +502,8 @@ namespace Talent.Services.Profile.Domain.Services
                         Level = level,
                         Skills = skills,
                         Summary = summary,
-                        Visa = visa
+                        Visa = visa,
+                        LinkedAccounts = item.LinkedAccounts
                     };
 
                     result.Add(talentSnapshot);

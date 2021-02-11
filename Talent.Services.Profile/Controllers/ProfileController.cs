@@ -472,7 +472,8 @@ namespace Talent.Services.Profile.Controllers
                               PhotoId = "",
                               Skills = new List<string> { "C#", ".Net Core", "Javascript", "React.js" },
                               Summary = "Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.",
-                              Visa = "Citizen"
+                              Visa = "Citizen",
+                              LinkedAccounts = new LinkedAccounts() { Github = "https://github.com/rethc", LinkedIn = "https://linkedin.com" }
                            }
                         );;
                  }
