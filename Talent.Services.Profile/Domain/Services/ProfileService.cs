@@ -422,18 +422,13 @@ namespace Talent.Services.Profile.Domain.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(string employerOrJobId, bool forJob, int position, int increment)
+        public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(string employerOrJobId, bool forJob, int position = 0, int increment = 5)
         {
-            try
-            {
+  
                 var obj = await _userRepository.Get(x => x.IsDeleted == false && x.Skills.Count > 0 && x.Experience.Count > 0 && x.LinkedAccounts.Github.Length > 0 && x.LinkedAccounts.LinkedIn.Length > 0);
                 var list = obj.Skip(position).Take(increment).ToList();
                 return list.Select(x => TalentSnapshotFromViewModel(x));
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+ 
 
 
         /*Employer profile = null;
