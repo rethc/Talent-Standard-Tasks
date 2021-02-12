@@ -2,6 +2,58 @@
 import ReactPlayer from "react-player";
 import PropTypes from "prop-types";
 import { Embed, Label, Card, Grid, Icon, Image, Item } from "semantic-ui-react";
+import TalentCardDetail from "./TalentCardDetail.jsx";
+
+export default class TalentCard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeItem: "video",
+    };
+
+    this.handleActiveItem = this.handleActiveItem.bind(this);
+  }
+
+  //Toggle between profile and video views
+  handleActiveItem(e) {
+    if (e.target.name == "profile") {
+      this.setState({ activeItem: "profile" });
+    } else {
+      this.setState({ activeItem: "video" });
+    }
+  }
+
+  render() {
+    const { talentData } = this.props;
+    return (
+      <React.Fragment>
+        <Card fluid>
+          <Card.Content>
+            <Card.Header>
+              <Grid columns="equal">
+                <Grid.Row>
+                  <Grid.Column>{talentData.name}</Grid.Column>
+                  <Grid.Column textAlign="right">
+                    <Icon name="star" />
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+            </Card.Header>
+          </Card.Content>
+
+          {/* Card Details */}
+          <TalentCardDetail
+            talent={talentData}
+            activeItem={this.state.activeItem}
+          />
+        </Card>
+      </React.Fragment>
+    );
+  }
+}
+
+/* === old code ====
 
 const availableItems = [
   { key: "0", name: "video", icon: "video" },
@@ -32,7 +84,7 @@ export default class TalentCard extends React.Component {
 
   render() {
     return (
-      <Fragment>
+      <React.Fragment>
         <Card fluid>
           <Card.Content>
             <Card.Header>
@@ -50,7 +102,7 @@ export default class TalentCard extends React.Component {
           {this.renderMenu()}
           {this.renderSkills()}
         </Card>
-      </Fragment>
+      </React.Fragment>
     );
   }
 
@@ -132,6 +184,7 @@ export default class TalentCard extends React.Component {
     );
   }
 
+  //If CV information for the Talent is blank display a message.
   renderCV() {
     if (
       this.props.talentData.cvUrl === null ||
@@ -143,6 +196,7 @@ export default class TalentCard extends React.Component {
     }
   }
 
+  //If LinkedIn information for the Talent is blank show a message.
   renderLinkedIn() {
     if (
       this.props.talentData.linkedAccounts.linkedIn === null ||
@@ -154,6 +208,7 @@ export default class TalentCard extends React.Component {
     }
   }
 
+  //If GitHub information for the Talent is blank show a message.
   renderGitHub() {
     if (
       this.props.talentData.linkedAccounts.github === null ||
@@ -203,18 +258,6 @@ export default class TalentCard extends React.Component {
   }
 }
 
-/*const skillLabels = this.props.talentData.skills.map((skill, index) => (
-      <Label key={index} basic color="blue" content={skill} />
-    ));
-
-    //hardcoded
-    return (
-      <Card.Content extra>
-        <Label basic color="blue" content="C#" />
-      </Card.Content>
-    );
-  }*/
-
 const MenuItem = (props) => (
   <a
     className="item"
@@ -224,3 +267,4 @@ const MenuItem = (props) => (
     <i aria-hidden="true" className={props.icon + " large icon"}></i>
   </a>
 );
+*/

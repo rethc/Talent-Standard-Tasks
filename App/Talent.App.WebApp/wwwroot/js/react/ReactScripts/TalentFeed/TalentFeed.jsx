@@ -45,8 +45,7 @@ export default class TalentFeed extends React.Component {
   loadEmployerData() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url:
-        "https://cprofileservices2.azurewebsites.net/profile/profile/getEmployerProfile",
+      url: "http://localhost:60290/profile/profile/getEmployerProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -71,10 +70,48 @@ export default class TalentFeed extends React.Component {
   }
 
   loadTalentData() {
+    if (!this.state.loadingFeedData) {
+      this.setState({ loadingFeedData: true }, () => {
+        var data = this.state.feedData;
+        var cookies = Cookies.get("talentAuthToken");
+        $.ajax({
+          url:
+            "http://localhost:60290/profile/profile/getTalent" +
+            "?position=" +
+            this.state.position +
+            "&number=" +
+            this.state.number,
+          headers: {
+            Authorization: "Bearer " + cookies,
+            "Content-Type": "application/json",
+          },
+          type: "GET",
+          success: function (res) {
+            // Add additional data to the feed if there is existing data
+            res.data.map((t) => {
+              data.push(t);
+            });
+            console.log("New Feed Data: ", data);
+
+            this.setState({ feedData: data }, () => {
+              console.log(this.state.feedData.length);
+
+              // Set variables for the next load
+              this.setState({
+                position: this.state.position + this.state.number,
+                loadingFeedData: false,
+              });
+            });
+          }.bind(this),
+        });
+      });
+    }
+  }
+
+  /*loadTalentData() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url:
-        "https://cprofileservices2.azurewebsites.net/profile/profile/getTalent",
+      url: "http://localhost:60290/profile/profile/getTalent",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -106,7 +143,7 @@ export default class TalentFeed extends React.Component {
         console.log(res.status);
       },
     });
-  }
+  }*/
 
   renderTalents() {
     const talentList = this.state.feedData.map((talent) => (

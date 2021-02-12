@@ -424,96 +424,108 @@ namespace Talent.Services.Profile.Domain.Services
 
         public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(string employerOrJobId, bool forJob, int position, int increment)
         {
-            Employer profile = null;
-            var employerID = employerOrJobId;
-            if (forJob)
+            try
             {
-                var job = await _jobRepository.GetByIdAsync(employerOrJobId);
-                employerID = job.EmployerID;
+                var obj = await _userRepository.Get(x => x.IsDeleted == false && x.Skills.Count > 0 && x.Experience.Count > 0 && x.LinkedAccounts.Github.Length > 0 && x.LinkedAccounts.LinkedIn.Length > 0);
+                var list = obj.Skip(position).Take(increment).ToList();
+                return list.Select(x => TalentSnapshotFromViewModel(x));
+            }
+            catch (Exception e)
+            {
+                return null;
             }
 
-            profile = await _employerRepository.GetByIdAsync(employerID);
-            var talentList = _userRepository.GetQueryable().Skip(position).Take(increment);
 
-            if (profile != null)
+        /*Employer profile = null;
+        var employerID = employerOrJobId;
+        if (forJob)
+        {
+            var job = await _jobRepository.GetByIdAsync(employerOrJobId);
+            employerID = job.EmployerID;
+        }
+
+        profile = await _employerRepository.GetByIdAsync(employerID);
+        var talentList = _userRepository.GetQueryable().Skip(position).Take(increment);
+
+        if (profile != null)
+        {
+            var result = new List<TalentSnapshotViewModel>();
+
+            foreach (var item in talentList)
             {
-                var result = new List<TalentSnapshotViewModel>();
-
-                foreach (var item in talentList)
+                var photoId = "";
+                if (item.ProfilePhotoUrl != null)
                 {
-                    var photoId = "";
-                    if (item.ProfilePhotoUrl != null)
-                    {
-                        photoId = item.ProfilePhotoUrl;
-                    }
-
-                    var videoUrl = "";
-                    if (item.VideoName != null)
-                    {
-                        videoUrl = string.IsNullOrWhiteSpace(item.VideoName)
-                                  ? ""
-                                  : await _fileService.GetFileURL(item.VideoName, FileType.UserVideo);
-                    }
-
-                    var cvUrl = "";
-                    if (item.CvName != null)
-                    {
-                        cvUrl = string.IsNullOrWhiteSpace(item.CvName)
-                                  ? ""
-                                  : await _fileService.GetFileURL(item.CvName, FileType.UserVideo);
-                    }
-
-                    var summary = "";
-                    if (item.Summary != null)
-                    {
-                        summary = item.Summary;
-                    }
-
-                    var currentEmployment = "";
-                    if (item.Experience != null && item.Experience.Count > 0)
-                    {
-                        currentEmployment = item.Experience.First().Company;
-                    }
-
-                    var visa = "";
-                    if (item.VisaStatus != null)
-                    {
-                        visa = item.VisaStatus;
-                    }
-
-                    var level = "";
-
-                    List<string> skills = new List<string>();
-                    if (item.Skills != null)
-                    {
-                        Console.WriteLine("Skills not null.");
-                        skills = item.Skills.Select(aSkill => aSkill.Skill).ToList();
-                        Console.WriteLine($"Count: {item.Skills.Count}");
-                    }
-
-                    var talentSnapshot = new TalentSnapshotViewModel
-                    {
-                        Id = item.Id,
-                        Name = item.FirstName + ' ' + item.LastName,
-                        PhotoId = photoId,
-                        VideoUrl = videoUrl,
-                        CVUrl = cvUrl,
-                        CurrentEmployment = currentEmployment,
-                        Level = level,
-                        Skills = skills,
-                        Summary = summary,
-                        Visa = visa,
-                        LinkedAccounts = item.LinkedAccounts
-                    };
-
-                    result.Add(talentSnapshot);
+                    photoId = item.ProfilePhotoUrl;
                 }
 
-                return result;
+                var videoUrl = "";
+                if (item.VideoName != null)
+                {
+                    videoUrl = string.IsNullOrWhiteSpace(item.VideoName)
+                              ? ""
+                              : await _fileService.GetFileURL(item.VideoName, FileType.UserVideo);
+                }
+
+                var cvUrl = "";
+                if (item.CvName != null)
+                {
+                    cvUrl = string.IsNullOrWhiteSpace(item.CvName)
+                              ? ""
+                              : await _fileService.GetFileURL(item.CvName, FileType.UserVideo);
+                }
+
+                var summary = "";
+                if (item.Summary != null)
+                {
+                    summary = item.Summary;
+                }
+
+                var currentEmployment = "";
+                if (item.Experience != null && item.Experience.Count > 0)
+                {
+                    currentEmployment = item.Experience.First().Company;
+                }
+
+                var visa = "";
+                if (item.VisaStatus != null)
+                {
+                    visa = item.VisaStatus;
+                }
+
+                var level = "";
+
+                List<string> skills = new List<string>();
+                if (item.Skills != null)
+                {
+                    Console.WriteLine("Skills not null.");
+                    skills = item.Skills.Select(aSkill => aSkill.Skill).ToList();
+                    Console.WriteLine($"Count: {item.Skills.Count}");
+                }
+
+                var talentSnapshot = new TalentSnapshotViewModel
+                {
+                    Id = item.Id,
+                    Name = item.FirstName + ' ' + item.LastName,
+                    PhotoId = photoId,
+                    VideoUrl = videoUrl,
+                    CVUrl = cvUrl,
+                    CurrentEmployment = currentEmployment,
+                    Level = level,
+                    Skills = skills,
+                    Summary = summary,
+                    Visa = visa,
+                    LinkedAccounts = item.LinkedAccounts
+                };
+
+                result.Add(talentSnapshot);
             }
 
-            return null;
+            return result;
         }
+
+        return null;*/
+    }
 
         public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(IEnumerable<string> ids)
         {
@@ -621,6 +633,29 @@ namespace Talent.Services.Profile.Domain.Services
                 Responsibilities = experience.Responsibilities,
                 Start = experience.Start,
                 End = experience.End
+            };
+        }
+
+        //Chesda
+         protected TalentSnapshotViewModel TalentSnapshotFromViewModel(User model)
+        {
+            List<string> sk = new List<string>();
+            model.Skills.ForEach(skill => {
+                sk.Add(skill.Skill);
+            });
+
+            return new TalentSnapshotViewModel
+            {
+                Id = model.Id,
+                Name = model.FirstName + " " + model.MiddleName + " " + model.LastName,
+                CurrentEmployment = model.Experience.OrderByDescending(o => o.Start).FirstOrDefault(),
+                Summary = model.Summary,
+                CVUrl = model.CvName,
+                VideoUrl = model.VideoName,
+                PhotoId = model.ProfilePhotoUrl,
+                Skills = sk.Count > 0 ? sk : (new List<string>() { "" }),
+                Visa = model.VisaStatus,
+                LinkedAccounts = model.LinkedAccounts
             };
         }
 

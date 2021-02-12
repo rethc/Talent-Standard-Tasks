@@ -466,14 +466,15 @@ namespace Talent.Services.Profile.Controllers
                 {
                     result.Add(
                            new Models.TalentSnapshotViewModel {
-                              CurrentEmployment = "Software Developer at Microsoft",
+                              CurrentEmployment = new UserExperience() { Company = "MVP Studio", Position = "Software Developer", Start = new DateTime().ToUniversalTime() },
                               Level = "Junior",
                               Name = "Dummy User...",
-                              PhotoId = "",
+                              PhotoId = "https://picsum.photos/200/300",
                               Skills = new List<string> { "C#", ".Net Core", "Javascript", "React.js" },
                               Summary = "Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.",
                               Visa = "Citizen",
-                              LinkedAccounts = new LinkedAccounts() { Github = "https://github.com/rethc", LinkedIn = "https://linkedin.com" }
+                              VideoUrl = "https://www.youtube.com/watch?v=3DCeoCpTIAI",
+                              LinkedAccounts = new LinkedAccounts() { Github = "https://github.com/rethc", LinkedIn = "https://www.linkedin.com" }
                            }
                         );;
                  }
