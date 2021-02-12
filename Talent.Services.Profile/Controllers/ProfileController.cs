@@ -469,11 +469,12 @@ namespace Talent.Services.Profile.Controllers
                               CurrentEmployment = new UserExperience() { Company = "MVP Studio", Position = "Software Developer", Start = new DateTime().ToUniversalTime() },
                               Level = "Junior",
                               Name = "Dummy User...",
-                              PhotoId = "https://picsum.photos/200/300",
+                              PhotoId = "https://github.com/rethc/reth.nz/raw/gh-pages/avatar.jpg",
                               Skills = new List<string> { "C#", ".Net Core", "Javascript", "React.js" },
                               Summary = "Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.",
                               Visa = "Citizen",
                               VideoUrl = "https://www.youtube.com/watch?v=3DCeoCpTIAI",
+                              CVUrl = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                               LinkedAccounts = new LinkedAccounts() { Github = "https://github.com/rethc", LinkedIn = "https://www.linkedin.com" }
                            }
                         );;

@@ -1,6 +1,16 @@
 ﻿import React from "react";
 import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
+import {
+  Embed,
+  Label,
+  Card,
+  Grid,
+  Icon,
+  Image,
+  Item,
+  Button,
+} from "semantic-ui-react";
 
 export default class TalentCardDetail extends React.Component {
   constructor(props) {
@@ -9,20 +19,22 @@ export default class TalentCardDetail extends React.Component {
   render() {
     const { activeItem, talentData } = this.props;
 
-    if (activeItem == "video") {
+    //Show video view
+    if (activeItem === "profile") {
       return (
         <React.Fragment>
           <ReactPlayer
             className="react-player"
             url={
-              this.props.talentData.videoUrl
-                ? this.props.talentData.videoUrl
+              talentData.videoUrl
+                ? talentData.videoUrl
                 : "https://www.youtube.com/watch?v=dpw9EHDh2bM"
             }
             width="100%"
           />
         </React.Fragment>
       );
+      //Show profile view
     } else {
       return (
         <React.Fragment>
@@ -48,21 +60,21 @@ export default class TalentCardDetail extends React.Component {
                     <Grid.Column>
                       <b>CURRENT EMPLOYER</b>
                       <br />
-                      {this.props.talentData.currentEmployment}
+                      {talentData.currentEmployment.company}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column>
                       <b>VISA STATUS</b>
                       <br />
-                      {this.props.talentData.visa}
+                      {talentData.visa}
                     </Grid.Column>
                   </Grid.Row>
                   <Grid.Row>
                     <Grid.Column>
                       <b>POSITION</b>
                       <br />
-                      {this.props.talentData.currentEmployment}
+                      {talentData.currentEmployment.position}
                     </Grid.Column>
                   </Grid.Row>
                 </Grid>

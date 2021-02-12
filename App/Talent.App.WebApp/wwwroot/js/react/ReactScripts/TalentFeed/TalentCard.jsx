@@ -1,7 +1,16 @@
 ﻿import React, { Fragment } from "react";
 import ReactPlayer from "react-player";
 import PropTypes from "prop-types";
-import { Embed, Label, Card, Grid, Icon, Image, Item } from "semantic-ui-react";
+import {
+  Embed,
+  Label,
+  Card,
+  Grid,
+  Icon,
+  Image,
+  Item,
+  Button,
+} from "semantic-ui-react";
 import TalentCardDetail from "./TalentCardDetail.jsx";
 
 export default class TalentCard extends React.Component {
@@ -44,9 +53,71 @@ export default class TalentCard extends React.Component {
 
           {/* Card Details */}
           <TalentCardDetail
-            talent={talentData}
+            talentData={talentData}
             activeItem={this.state.activeItem}
           />
+
+          <Card.Content extra>
+            <Button.Group basic size={"big"} widths={"4"} style={{ border: 0 }}>
+              {/* Video/Profile Button */}
+              {this.state.activeItem === "video" ? (
+                <Button
+                  name="profile"
+                  icon="user"
+                  onClick={() => {
+                    this.handleActiveItem(e);
+                  }}
+                />
+              ) : (
+                <Button
+                  name="video"
+                  icon="video"
+                  onClick={() => {
+                    this.handleActiveItem(e);
+                  }}
+                />
+              )}
+
+              {/* CV Button */}
+              <Button
+                name="cv"
+                icon="file pdf outline"
+                onClick={() => {
+                  window.open(
+                    talentData.cvUrl === ""
+                      ? "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                      : talentData.cvUrl
+                  );
+                }}
+              />
+
+              {/* LinkedIn Button */}
+              <Button
+                name="linkedin"
+                icon="linkedin"
+                onClick={() => {
+                  window.open(
+                    talentData.linkedAccounts.linkedIn === ""
+                      ? "https://nz.linkedin.com/"
+                      : talentData.linkedAccounts.linkedIn
+                  );
+                }}
+              />
+
+              {/* GitHub Button */}
+              <Button
+                name="github"
+                icon="github"
+                onClick={() => {
+                  window.open(
+                    talentData.linkedAccounts.github === ""
+                      ? "https://github.com/"
+                      : talentData.linkedAccounts.github
+                  );
+                }}
+              />
+            </Button.Group>
+          </Card.Content>
         </Card>
       </React.Fragment>
     );
@@ -54,7 +125,6 @@ export default class TalentCard extends React.Component {
 }
 
 /* === old code ====
-
 const availableItems = [
   { key: "0", name: "video", icon: "video" },
   { key: "1", name: "profile", icon: "user" },
