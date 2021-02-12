@@ -37,6 +37,10 @@ export default class TalentCardDetail extends React.Component {
                       ? this.props.talentData.photoId
                       : "https://react.semantic-ui.com/images/avatar/large/matthew.png"
                   }
+                  onError={(i) =>
+                    (i.target.src =
+                      "https://react.semantic-ui.com/images/avatar/large/matthew.png")
+                  }
                 />
               </Grid.Column>
               <Grid.Column>
