@@ -1,16 +1,6 @@
 ﻿import React from "react";
-import ReactDOM from "react-dom";
 import ReactPlayer from "react-player";
-import {
-  Embed,
-  Label,
-  Card,
-  Grid,
-  Icon,
-  Image,
-  Item,
-  Button,
-} from "semantic-ui-react";
+import { Embed, Grid, Image } from "semantic-ui-react";
 
 export default class TalentCardDetail extends React.Component {
   constructor(props) {
@@ -20,7 +10,7 @@ export default class TalentCardDetail extends React.Component {
     const { activeItem, talentData } = this.props;
 
     //Show video view
-    if (activeItem === "profile") {
+    if (activeItem === "video") {
       return (
         <React.Fragment>
           <ReactPlayer

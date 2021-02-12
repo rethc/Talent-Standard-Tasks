@@ -1,16 +1,5 @@
-﻿import React, { Fragment } from "react";
-import ReactPlayer from "react-player";
-import PropTypes from "prop-types";
-import {
-  Embed,
-  Label,
-  Card,
-  Grid,
-  Icon,
-  Image,
-  Item,
-  Button,
-} from "semantic-ui-react";
+﻿import React from "react";
+import { Label, Card, Grid, Icon, Button } from "semantic-ui-react";
 import TalentCardDetail from "./TalentCardDetail.jsx";
 
 export default class TalentCard extends React.Component {
@@ -64,7 +53,7 @@ export default class TalentCard extends React.Component {
                 <Button
                   name="profile"
                   icon="user"
-                  onClick={() => {
+                  onClick={(e) => {
                     this.handleActiveItem(e);
                   }}
                 />
@@ -72,7 +61,7 @@ export default class TalentCard extends React.Component {
                 <Button
                   name="video"
                   icon="video"
-                  onClick={() => {
+                  onClick={(e) => {
                     this.handleActiveItem(e);
                   }}
                 />
@@ -118,7 +107,23 @@ export default class TalentCard extends React.Component {
               />
             </Button.Group>
           </Card.Content>
+
+          {/* Skills Label */}
+          <Card.Content extra textAlign={"left"}>
+            {talentData.skills !== null ? (
+              talentData.skills.map((skills, key) => {
+                return (
+                  <Label key={key} basic color={"blue"}>
+                    {skills}
+                  </Label>
+                );
+              })
+            ) : (
+              <React.Fragment></React.Fragment>
+            )}
+          </Card.Content>
         </Card>
+        <br />
       </React.Fragment>
     );
   }
